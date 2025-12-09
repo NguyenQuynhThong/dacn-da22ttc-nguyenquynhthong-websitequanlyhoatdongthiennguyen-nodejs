@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập - Web Thiện Nguyện</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="../public/css/tailwind.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+    <!-- Background Decoration -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none">
+        <div class="absolute top-0 -left-4 w-96 h-96 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
+        <div class="absolute top-0 -right-4 w-96 h-96 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+        <div class="absolute -bottom-8 left-20 w-96 h-96 bg-pink-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
+    </div>
+    
+    <div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="max-w-md w-full">
+            <!-- Logo / Biểu tượng -->
+            <div class="text-center mb-8">
+                <a href="index.html" class="inline-flex items-center space-x-2">
+                    <svg class="w-12 h-12 text-primary-600" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10 3.5a1.5 1.5 0 013 0V4a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-.5a1.5 1.5 0 000 3h.5a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-.5a1.5 1.5 0 00-3 0v.5a1 1 0 01-1 1H6a1 1 0 01-1-1v-3a1 1 0 00-1-1h-.5a1.5 1.5 0 010-3H4a1 1 0 001-1V6a1 1 0 011-1h3a1 1 0 001-1v-.5z"/>
+                    </svg>
+                    <span class="text-2xl font-display font-bold text-primary-600">Thiện Nguyện</span>
+                </a>
+                <h2 class="mt-6 text-3xl font-display font-bold text-gray-900">
+                    Đăng nhập
+                </h2>
+                <p class="mt-2 text-gray-600">
+                    Hoặc <a href="register.html" class="text-primary-600 hover:text-primary-700 font-medium">tạo tài khoản mới</a>
+                </p>
+            </div>
+
+            <!-- Biểu mẫu đăng nhập -->
+            <div class="backdrop-blur-sm bg-white/90 rounded-2xl shadow-2xl border border-white/20">
+                <div class="p-8">
+                    <form id="login-form" class="space-y-6">
+                        <!-- Trường Email -->
+                        <div>
+                            <label for="email" class="form-label">Email</label>
+                            <input 
+                                type="email" 
+                                id="email" 
+                                name="email" 
+                                required 
+                                class="form-input"
+                                placeholder="example@email.com"
+                            >
+                            <p id="email-error" class="form-error hidden"></p>
+                        </div>
+
+                        <!-- Trường mật khẩu -->
+                        <div>
+                            <label for="password" class="form-label">Mật khẩu</label>
+                            <div class="relative">
+                                <input 
+                                    type="password" 
+                                    id="password" 
+                                    name="password" 
+                                    required 
+                                    class="form-input"
+                                    placeholder="••••••••"
+                                >
+                                <button 
+                                    type="button" 
+                                    id="toggle-password"
+                                    class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                                >
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            <p id="password-error" class="form-error hidden"></p>
+                        </div>
+
+                        <!-- Ghi nhớ & Quên mật khẩu -->
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <input 
+                                    type="checkbox" 
+                                    id="remember" 
+                                    name="remember"
+                                    class="w-4 h-4 text-primary-600 border-gray-300 rounded focus:ring-primary-500"
+                                >
+                                <label for="remember" class="ml-2 text-sm text-gray-700">
+                                    Ghi nhớ đăng nhập
+                                </label>
+                            </div>
+                            <a href="#" class="text-sm text-primary-600 hover:text-primary-700">
+                                Quên mật khẩu?
+                            </a>
+                        </div>
+
+                        <!-- Nút gửi -->
+                        <button type="submit" class="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 hover:from-blue-700 hover:to-blue-800">
+                            Đăng nhập
+                        </button>
+
+                        <!-- Dấu phân cách -->
+                        <div class="relative">
+                            <div class="absolute inset-0 flex items-center">
+                                <div class="w-full border-t border-gray-300"></div>
+                            </div>
+                            <div class="relative flex justify-center text-sm">
+                                <span class="px-2 bg-white text-gray-500">Hoặc</span>
+                            </div>
+                        </div>
+
+                        <!-- Quay về trang chủ -->
+                        <a href="index.html" class="block w-full text-center bg-gray-100 hover:bg-gray-200 text-gray-700 py-3 rounded-xl font-semibold transition-all duration-200">
+                            Về trang chủ
+                        </a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../public/js/main.js"></script>
+    <script>
+        // Bật/tắt hiển thị mật khẩu
+        document.getElementById('toggle-password').addEventListener('click', function() {
+            const passwordInput = document.getElementById('password');
+            passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password';
+        });
+
+        // Xử lý gửi biểu mẫu đăng nhập
+        document.getElementById('login-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Lấy giá trị từ biểu mẫu
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            
+            // Kiểm tra dữ liệu
+            let hasError = false;
+            
+            if (!ui.isValidEmail(email)) {
+                document.getElementById('email-error').textContent = 'Email không hợp lệ';
+                document.getElementById('email-error').classList.remove('hidden');
+                hasError = true;
+            } else {
+                document.getElementById('email-error').classList.add('hidden');
+            }
+            
+            if (password.length < 6) {
+                document.getElementById('password-error').textContent = 'Mật khẩu phải có ít nhất 6 ký tự';
+                document.getElementById('password-error').classList.remove('hidden');
+                hasError = true;
+            } else {
+                document.getElementById('password-error').classList.add('hidden');
+            }
+            
+            if (hasError) return;
+            
+            // Gửi yêu cầu đăng nhập
+            try {
+                ui.showLoading();
+                
+                const result = await auth.login(email, password);
+                
+                ui.hideLoading();
+                ui.showAlert('Đăng nhập thành công!', 'success');
+                
+                // Chuyển hướng theo vai trò
+                setTimeout(() => {
+                    const user = auth.getCurrentUser();
+                    if (user.vai_tro === 'admin') {
+                        window.location.href = 'dashboard-admin.html';
+                    } else if (user.vai_tro === 'to_chuc') {
+                        window.location.href = 'dashboard-to-chuc.html';
+                    } else {
+                        window.location.href = 'profile.html';
+                    }
+                }, 1000);
+                
+            } catch (error) {
+                ui.hideLoading();
+                ui.showAlert(error.message || 'Đăng nhập thất bại. Vui lòng kiểm tra lại thông tin.', 'error');
+            }
+        });
+    </script>
+</body>
+</html>

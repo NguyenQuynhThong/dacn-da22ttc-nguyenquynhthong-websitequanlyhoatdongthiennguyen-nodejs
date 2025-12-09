@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi tiết chiến dịch - Web Thiện Nguyện</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        },
+                        secondary: {
+                            50: '#fdf4ff',
+                            100: '#fae8ff',
+                            200: '#f5d0fe',
+                            300: '#f0abfc',
+                            400: '#e879f9',
+                            500: '#d946ef',
+                            600: '#c026d3',
+                            700: '#a21caf',
+                            800: '#86198f',
+                            900: '#701a75',
+                        },
+                        accent: {
+                            500: '#f59e0b',
+                            600: '#d97706',
+                        }
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-in-out',
+                        'slide-up': 'slideUp 0.5s ease-out',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="../public/css/tailwind.css">
+    <link rel="stylesheet" href="../public/css/animations.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="bg-gray-50">
+    <!-- Thanh điều hướng -->
+    <nav class="bg-white shadow-md sticky top-0 z-30">
+        <div class="container-custom">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo / Biểu tượng -->
+                <a href="index.html" class="flex items-center space-x-2">
+                    <svg class="w-8 h-8 text-primary-600" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10 3.5a1.5 1.5 0 013 0V4a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-.5a1.5 1.5 0 000 3h.5a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-.5a1.5 1.5 0 00-3 0v.5a1 1 0 01-1 1H6a1 1 0 01-1-1v-3a1 1 0 00-1-1h-.5a1.5 1.5 0 010-3H4a1 1 0 001-1V6a1 1 0 011-1h3a1 1 0 001-1v-.5z"/>
+                    </svg>
+                    <span class="text-xl font-display font-bold text-primary-600">Thiện Nguyện</span>
+                </a>
+
+                <!-- Menu điều hướng Desktop -->
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="index.html" class="nav-link">Trang chủ</a>
+                    <a href="chien-dich.html" class="nav-link nav-link-active">Chiến dịch</a>
+                    <a href="to-chuc.html" class="nav-link">Tổ chức</a>
+                    <a href="#about" class="nav-link">Về chúng tôi</a>
+                </div>
+
+                <!-- Liên kết đăng nhập/đăng ký -->
+                <div id="auth-links" class="hidden md:flex items-center space-x-4">
+                    <a href="login.html" class="btn btn-secondary btn-sm">Đăng nhập</a>
+                    <a href="register.html" class="btn btn-primary btn-sm">Đăng ký</a>
+                </div>
+
+                <!-- Menu người dùng -->
+                <div id="user-menu" class="hidden md:flex items-center space-x-4">
+                    <a id="dashboard-link" href="profile.html" class="nav-link">Dashboard</a>
+                    <div class="relative">
+                        <button id="user-dropdown-btn" class="flex items-center space-x-2 focus:outline-none">
+                            <div class="w-8 h-8 rounded-full bg-primary-600 flex items-center justify-center text-white font-semibold">
+                                <span id="user-avatar">U</span>
+                            </div>
+                            <span id="user-name" class="text-gray-700 font-medium"></span>
+                        </button>
+                    </div>
+                    <button id="logout-btn" class="btn btn-secondary btn-sm">Đăng xuất</button>
+                </div>
+
+                <!-- Nút menu di động -->
+                <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg hover:bg-gray-100">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Nội dung chính -->
+    <main class="container-custom py-8">
+        <!-- Loading state -->
+        <div id="loading-state" class="text-center py-20">
+            <div class="inline-block animate-spin rounded-full h-16 w-16 border-b-2 border-primary-600"></div>
+            <p class="mt-4 text-gray-600 text-lg">Đang tải thông tin chiến dịch...</p>
+        </div>
+
+        <!-- Error state -->
+        <div id="error-state" class="hidden text-center py-20">
+            <svg class="w-24 h-24 text-red-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <h3 class="text-2xl font-semibold text-gray-700 mb-2">Không tìm thấy chiến dịch</h3>
+            <p class="text-gray-500 mb-6">Chiến dịch này không tồn tại hoặc đã bị xóa</p>
+            <a href="chien-dich.html" class="btn btn-primary">Quay lại danh sách</a>
+        </div>
+
+        <!-- Campaign detail content -->
+        <div id="campaign-content" class="hidden">
+            <!-- Breadcrumb -->
+            <nav class="flex mb-6 text-sm" aria-label="Breadcrumb">
+                <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                    <li class="inline-flex items-center">
+                        <a href="index.html" class="text-gray-500 hover:text-primary-600">Trang chủ</a>
+                    </li>
+                    <li>
+                        <div class="flex items-center">
+                            <svg class="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                            </svg>
+                            <a href="chien-dich.html" class="ml-1 text-gray-500 hover:text-primary-600">Chiến dịch</a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="flex items-center">
+                            <svg class="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                            </svg>
+                            <span class="ml-1 text-gray-700 font-medium" id="breadcrumb-title">Chi tiết</span>
+                        </div>
+                    </li>
+                </ol>
+            </nav>
+
+            <div class="grid lg:grid-cols-3 gap-8">
+                <!-- Cột trái: Thông tin chính -->
+                <div class="lg:col-span-2 space-y-6">
+                    <!-- Hình ảnh và tiêu đề -->
+                    <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+                        <div class="relative h-96 bg-gradient-to-br from-primary-400 to-secondary-500">
+                            <img id="campaign-image" src="" alt="" class="w-full h-full object-cover hidden">
+                            <div id="campaign-image-placeholder" class="w-full h-full flex items-center justify-center">
+                                <svg class="w-32 h-32 text-white opacity-50" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M10 3.5a1.5 1.5 0 013 0V4a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-.5a1.5 1.5 0 000 3h.5a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-.5a1.5 1.5 0 00-3 0v.5a1 1 0 01-1 1H6a1 1 0 01-1-1v-3a1 1 0 00-1-1h-.5a1.5 1.5 0 010-3H4a1 1 0 001-1V6a1 1 0 011-1h3a1 1 0 001-1v-.5z"/>
+                                </svg>
+                            </div>
+                            <div class="absolute top-4 left-4">
+                                <span id="status-badge" class="badge badge-success">Đang mở</span>
+                            </div>
+                            <div class="absolute top-4 right-4">
+                                <span id="category-badge" class="badge bg-blue-100 text-blue-800">Danh mục</span>
+                            </div>
+                        </div>
+                        <div class="p-8">
+                            <h1 id="campaign-title" class="text-3xl md:text-4xl font-display font-bold text-gray-900 mb-4">
+                                Đang tải...
+                            </h1>
+                            <div class="flex flex-wrap gap-4 text-sm text-gray-600 mb-6">
+                                <div class="flex items-center gap-2">
+                                    <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                                    </svg>
+                                    <span id="organization-name">Tổ chức</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                                    </svg>
+                                    <span id="campaign-dates">Thời gian</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                    </svg>
+                                    <span id="campaign-location">Địa điểm</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tabs -->
+                    <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+                        <div class="border-b border-gray-200">
+                            <nav class="flex -mb-px">
+                                <button onclick="switchTab('description')" class="tab-button active px-6 py-4 text-sm font-medium border-b-2 border-primary-600 text-primary-600" data-tab="description">
+                                    Mô tả
+                                </button>
+                                <button onclick="switchTab('updates')" class="tab-button px-6 py-4 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" data-tab="updates">
+                                    Cập nhật
+                                </button>
+                                <button onclick="switchTab('comments')" class="tab-button px-6 py-4 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" data-tab="comments">
+                                    Bình luận
+                                </button>
+                            </nav>
+                        </div>
+
+                        <!-- Tab content -->
+                        <div class="p-8">
+                            <!-- Tab Mô tả -->
+                            <div id="tab-description" class="tab-content">
+                                <div class="prose max-w-none">
+                                    <p id="campaign-description" class="text-gray-700 leading-relaxed whitespace-pre-wrap">
+                                        Đang tải mô tả...
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Tab Cập nhật -->
+                            <div id="tab-updates" class="tab-content hidden">
+                                <div id="updates-list" class="space-y-6">
+                                    <!-- Updates will be loaded here -->
+                                    <p class="text-gray-500 text-center py-8">Chưa có cập nhật nào</p>
+                                </div>
+                            </div>
+
+                            <!-- Tab Bình luận -->
+                            <div id="tab-comments" class="tab-content hidden">
+                                <!-- Form bình luận (chỉ hiển thị khi đã đăng nhập) -->
+                                <div id="comment-form" class="hidden mb-8">
+                                    <textarea 
+                                        id="comment-input" 
+                                        rows="3" 
+                                        placeholder="Viết bình luận của bạn..."
+                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                                    ></textarea>
+                                    <button onclick="submitComment()" class="btn btn-primary mt-3">
+                                        Gửi bình luận
+                                    </button>
+                                </div>
+
+                                <div id="comments-list" class="space-y-4">
+                                    <!-- Comments will be loaded here -->
+                                    <p class="text-gray-500 text-center py-8">Chưa có bình luận nào</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cột phải: Thông tin quyên góp và tham gia -->
+                <div class="lg:col-span-1 space-y-6">
+                    <!-- Card quyên góp -->
+                    <div class="bg-white rounded-2xl shadow-lg p-6 sticky top-20">
+                        <div class="mb-6">
+                            <div class="flex justify-between items-baseline mb-2">
+                                <span class="text-3xl font-bold text-primary-600" id="total-donated">0đ</span>
+                                <span class="text-sm text-gray-500">đã quyên góp</span>
+                            </div>
+                            <div class="progress-bar mb-2">
+                                <div id="progress-fill" class="progress-fill" style="width: 0%"></div>
+                            </div>
+                            <div class="flex justify-between text-sm text-gray-600">
+                                <span>Mục tiêu: <span id="target-amount" class="font-semibold">0đ</span></span>
+                                <span id="progress-percent" class="font-semibold">0%</span>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4 mb-6">
+                            <div class="text-center p-4 bg-blue-50 rounded-lg">
+                                <div class="text-2xl font-bold text-blue-600" id="donor-count">0</div>
+                                <div class="text-sm text-gray-600">Nhà hảo tâm</div>
+                            </div>
+                            <div class="text-center p-4 bg-green-50 rounded-lg">
+                                <div class="text-2xl font-bold text-green-600" id="volunteer-count">0</div>
+                                <div class="text-sm text-gray-600">Tình nguyện viên</div>
+                            </div>
+                        </div>
+
+                        <div class="space-y-3">
+                            <button id="donate-btn" class="btn btn-primary w-full">
+                                <svg class="w-5 h-5 mr-2 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                Quyên góp ngay
+                            </button>
+                            <button id="volunteer-btn" class="btn btn-secondary w-full">
+                                <svg class="w-5 h-5 mr-2 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                                </svg>
+                                Đăng ký tình nguyện
+                            </button>
+                            <button class="btn btn-sm w-full border border-gray-300 bg-white text-gray-700 hover:bg-gray-50">
+                                <svg class="w-5 h-5 mr-2 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/>
+                                </svg>
+                                Chia sẻ
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Thông tin tổ chức -->
+                    <div class="bg-white rounded-2xl shadow-lg p-6">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">Thông tin tổ chức</h3>
+                        <div class="flex items-start gap-4">
+                            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-primary-500 to-secondary-500 flex items-center justify-center text-white text-2xl font-bold flex-shrink-0">
+                                <span id="org-avatar">T</span>
+                            </div>
+                            <div>
+                                <h4 id="org-name" class="font-semibold text-gray-900 mb-1">Tổ chức</h4>
+                                <p id="org-description" class="text-sm text-gray-600 mb-3">Mô tả tổ chức</p>
+                                <a href="#" id="org-link" class="text-sm text-primary-600 hover:text-primary-700 font-medium">
+                                    Xem trang tổ chức →
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Chân trang -->
+    <footer class="bg-gray-900 text-gray-300 py-12 mt-16">
+        <div class="container-custom">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <svg class="w-8 h-8 text-primary-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10 3.5a1.5 1.5 0 013 0V4a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-.5a1.5 1.5 0 000 3h.5a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-.5a1.5 1.5 0 00-3 0v.5a1 1 0 01-1 1H6a1 1 0 01-1-1v-3a1 1 0 00-1-1h-.5a1.5 1.5 0 010-3H4a1 1 0 001-1V6a1 1 0 011-1h3a1 1 0 001-1v-.5z"/>
+                        </svg>
+                        <span class="text-xl font-display font-bold text-white">Thiện Nguyện</span>
+                    </div>
+                    <p class="text-sm">
+                        Kết nối và quản lý hoạt động thiện nguyện trong cộng đồng
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Về chúng tôi</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-primary-400">Giới thiệu</a></li>
+                        <li><a href="#" class="hover:text-primary-400">Liên hệ</a></li>
+                        <li><a href="#" class="hover:text-primary-400">Câu hỏi thường gặp</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Hỗ trợ</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-primary-400">Hướng dẫn sử dụng</a></li>
+                        <li><a href="#" class="hover:text-primary-400">Chính sách</a></li>
+                        <li><a href="#" class="hover:text-primary-400">Điều khoản</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Kết nối</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="hover:text-primary-400">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="hover:text-primary-400">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-sm">
+                <p>&copy; 2025 Web Thiện Nguyện. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../public/js/main.js"></script>
+    <script src="../public/js/chi-tiet-chien-dich.js"></script>
+</body>
+</html>
