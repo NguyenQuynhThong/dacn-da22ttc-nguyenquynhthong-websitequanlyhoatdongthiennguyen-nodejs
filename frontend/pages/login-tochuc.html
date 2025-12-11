@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập Tổ chức - Thiện Nguyện</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body class="bg-slate-900 min-h-screen">
+    <!-- Background Pattern -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none">
+        <div class="absolute top-0 left-1/4 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
+        <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="relative z-10">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+            <a href="../index.html" class="flex items-center gap-2">
+                <div class="w-10 h-10 gradient-purple rounded-xl flex items-center justify-center">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                    </svg>
+                </div>
+                <span class="text-xl font-bold text-white">Thiện Nguyện</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="relative z-10 flex items-center justify-center px-4 py-8 min-h-[calc(100vh-140px)]">
+        <div class="w-full max-w-5xl flex flex-col lg:flex-row items-center gap-12">
+            <!-- Left - Info -->
+            <div class="flex-1 text-center lg:text-left">
+                <div class="inline-flex items-center gap-2 bg-purple-500/20 text-purple-300 px-4 py-2 rounded-full text-sm font-medium mb-6">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z" clip-rule="evenodd"/>
+                    </svg>
+                    Dành cho Tổ chức từ thiện
+                </div>
+                <h1 class="text-3xl lg:text-4xl font-bold text-white mb-4">
+                    Quản lý chiến dịch<br>thiện nguyện của bạn
+                </h1>
+                <p class="text-gray-400 text-lg mb-8">
+                    Tạo chiến dịch, kết nối tình nguyện viên, nhận quyên góp và báo cáo minh bạch.
+                </p>
+
+                <!-- Features Grid -->
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-white/5 backdrop-blur rounded-xl p-4">
+                        <div class="w-10 h-10 bg-purple-500/20 rounded-lg flex items-center justify-center mb-3">
+                            <svg class="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+                            </svg>
+                        </div>
+                        <h3 class="font-semibold text-white">Tạo chiến dịch</h3>
+                        <p class="text-sm text-gray-400">Dễ dàng tạo và quản lý</p>
+                    </div>
+                    <div class="bg-white/5 backdrop-blur rounded-xl p-4">
+                        <div class="w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center mb-3">
+                            <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                        </div>
+                        <h3 class="font-semibold text-white">Tình nguyện viên</h3>
+                        <p class="text-sm text-gray-400">Kết nối và quản lý</p>
+                    </div>
+                    <div class="bg-white/5 backdrop-blur rounded-xl p-4">
+                        <div class="w-10 h-10 bg-green-500/20 rounded-lg flex items-center justify-center mb-3">
+                            <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                        </div>
+                        <h3 class="font-semibold text-white">Nhận quyên góp</h3>
+                        <p class="text-sm text-gray-400">Tiền và hiện vật</p>
+                    </div>
+                    <div class="bg-white/5 backdrop-blur rounded-xl p-4">
+                        <div class="w-10 h-10 bg-orange-500/20 rounded-lg flex items-center justify-center mb-3">
+                            <svg class="w-5 h-5 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                            </svg>
+                        </div>
+                        <h3 class="font-semibold text-white">Báo cáo</h3>
+                        <p class="text-sm text-gray-400">Minh bạch, chi tiết</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right - Login Form -->
+            <div class="w-full max-w-md">
+                <div class="bg-white rounded-2xl card-shadow p-8">
+                    <div class="text-center mb-6">
+                        <h2 class="text-2xl font-bold text-gray-800">Đăng nhập Tổ chức</h2>
+                        <p class="text-gray-500 mt-1">Quản lý hoạt động thiện nguyện</p>
+                    </div>
+
+                    <!-- Alert -->
+                    <div id="alertBox" class="hidden mb-4"></div>
+
+                    <!-- Login Form -->
+                    <form id="loginForm" class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Email tổ chức</label>
+                            <div class="relative">
+                                <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                                    </svg>
+                                </span>
+                                <input 
+                                    type="email" 
+                                    id="email" 
+                                    placeholder="tochuc@example.com"
+                                    class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg input-focus outline-none"
+                                    required
+                                >
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Mật khẩu</label>
+                            <div class="relative">
+                                <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                                    </svg>
+                                </span>
+                                <input 
+                                    type="password" 
+                                    id="password" 
+                                    placeholder="••••••••"
+                                    class="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg input-focus outline-none"
+                                    required
+                                >
+                                <button type="button" onclick="togglePassword()" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between text-sm">
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" class="w-4 h-4 text-purple-600 rounded">
+                                <span class="text-gray-600">Ghi nhớ đăng nhập</span>
+                            </label>
+                            <a href="#" class="text-purple-600 hover:underline">Quên mật khẩu?</a>
+                        </div>
+
+                        <button 
+                            type="submit" 
+                            id="loginBtn"
+                            class="w-full gradient-purple text-white font-semibold py-3 rounded-lg btn-hover flex items-center justify-center gap-2"
+                        >
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/>
+                            </svg>
+                            <span>Đăng nhập</span>
+                        </button>
+                    </form>
+
+                    <hr class="my-5">
+
+                    <div class="text-center">
+                        <p class="text-gray-600 text-sm mb-3">Chưa có tài khoản tổ chức?</p>
+                        <a href="register-tochuc.html" class="inline-block w-full border-2 border-purple-500 text-purple-600 font-semibold py-2.5 rounded-lg hover:bg-purple-50 transition-colors">
+                            Đăng ký tổ chức mới
+                        </a>
+                    </div>
+                </div>
+
+                <div class="mt-4 text-center">
+                    <a href="login.html" class="text-gray-400 hover:text-white text-sm inline-flex items-center gap-1">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                        </svg>
+                        Quay về trang đăng nhập người dùng
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="relative z-10 py-4">
+        <p class="text-center text-gray-500 text-sm">© 2025 Thiện Nguyện. All rights reserved.</p>
+    </footer>
+
+    <script src="../assets/js/config.js"></script>
+    <script>
+        function togglePassword() {
+            const input = document.getElementById('password');
+            input.type = input.type === 'password' ? 'text' : 'password';
+        }
+
+        // Login Form
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const btn = document.getElementById('loginBtn');
+            const alertBox = document.getElementById('alertBox');
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+
+            ui.setLoading(btn, true);
+            ui.hideAlert(alertBox);
+
+            try {
+                const res = await api.post('/auth/login/tochuc', { email, password });
+                const data = await res.json();
+
+                if (!res.ok) throw new Error(data.message || 'Email hoặc mật khẩu không đúng');
+
+                auth.setUser(data.token, data.user, 'tochuc');
+                ui.showAlert(alertBox, 'Đăng nhập thành công!', 'success');
+                setTimeout(() => window.location.href = 'tochuc/dashboard.html', 1000);
+            } catch (err) {
+                ui.showAlert(alertBox, err.message, 'error');
+            } finally {
+                ui.setLoading(btn, false, '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/></svg><span>Đăng nhập</span>');
+            }
+        });
+
+        // Check if already logged in as TOCHUC (không ảnh hưởng user)
+        if (auth.isLoggedInAs('tochuc')) {
+            window.location.href = 'tochuc/dashboard.html';
+        }
+    </script>
+</body>
+</html>

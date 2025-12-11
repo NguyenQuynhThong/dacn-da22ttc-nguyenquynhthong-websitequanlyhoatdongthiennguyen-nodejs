@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý Chiến dịch - Tổ chức</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+
+<body class="bg-gray-100 min-h-screen">
+    <div class="flex">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-white shadow-lg min-h-screen fixed left-0 top-0">
+            <div class="p-4 border-b">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 gradient-heart rounded-full flex items-center justify-center">
+                        <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <div>
+                        <p class="font-bold text-gray-800">Thiện Nguyện</p>
+                        <p class="text-xs text-gray-500">Quản lý Tổ chức</p>
+                    </div>
+                </div>
+            </div>
+            <nav class="p-4 space-y-1">
+                <a href="dashboard.html" class="flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-100 rounded-lg">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                    </svg>
+                    Dashboard
+                </a>
+                <a href="chien-dich.html" class="flex items-center gap-3 px-4 py-3 bg-blue-50 text-blue-600 rounded-lg font-medium">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                    </svg>
+                    Chiến dịch
+                </a>
+                <a href="tinh-nguyen-vien.html" class="flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-100 rounded-lg">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    Tình nguyện viên
+                </a>
+                <a href="quyen-gop.html" class="flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-100 rounded-lg">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    Quyên góp
+                </a>
+                <a href="bao-cao.html" class="flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-100 rounded-lg">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    Báo cáo
+                </a>
+                <a href="cai-dat.html" class="flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-100 rounded-lg">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    Cài đặt
+                </a>
+            </nav>
+            <div class="absolute bottom-0 left-0 right-0 p-4 border-t">
+                <button onclick="logout()" class="flex items-center gap-3 px-4 py-2 text-red-600 hover:bg-red-50 rounded-lg w-full">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                    </svg>
+                    Đăng xuất
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 ml-64 p-6">
+            <!-- Header -->
+            <div class="flex justify-between items-center mb-6">
+                <div>
+                    <h1 class="text-2xl font-bold text-gray-800">Quản lý Chiến dịch</h1>
+                    <p class="text-gray-500">Tạo và quản lý các chiến dịch thiện nguyện</p>
+                </div>
+                <button onclick="openCreateModal()" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                    </svg>
+                    Tạo chiến dịch mới
+                </button>
+            </div>
+
+            <!-- Filter Tabs -->
+            <div class="bg-white rounded-lg shadow mb-6">
+                <div class="flex border-b">
+                    <button onclick="filterCampaigns('all')" class="filter-tab px-6 py-3 text-sm font-medium border-b-2 border-blue-500 text-blue-600" data-filter="all">
+                        Tất cả
+                    </button>
+                    <button onclick="filterCampaigns('dang_dien_ra')" class="filter-tab px-6 py-3 text-sm font-medium text-gray-500 hover:text-gray-700" data-filter="dang_dien_ra">
+                        Đang diễn ra
+                    </button>
+                    <button onclick="filterCampaigns('cho_duyet')" class="filter-tab px-6 py-3 text-sm font-medium text-gray-500 hover:text-gray-700" data-filter="cho_duyet">
+                        Chờ duyệt
+                    </button>
+                    <button onclick="filterCampaigns('da_ket_thuc')" class="filter-tab px-6 py-3 text-sm font-medium text-gray-500 hover:text-gray-700" data-filter="da_ket_thuc">
+                        Đã kết thúc
+                    </button>
+                </div>
+            </div>
+
+            <!-- Campaign List -->
+            <div id="campaignList" class="space-y-4">
+                <div class="bg-white rounded-lg shadow p-6 text-center text-gray-500">
+                    Đang tải...
+                </div>
+            </div>
+        </main>
+    </div>
+
+
+    <!-- Modal Tạo/Sửa Chiến dịch -->
+    <div id="campaignModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center overflow-y-auto">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-2xl mx-4 my-8">
+            <div class="flex justify-between items-center p-6 border-b">
+                <h3 class="text-xl font-bold text-gray-800" id="modalTitle">Tạo chiến dịch mới</h3>
+                <button onclick="closeModal()" class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
+            </div>
+            <form id="campaignForm" class="p-6 space-y-4 max-h-[70vh] overflow-y-auto">
+                <input type="hidden" id="campaignId">
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Tên chiến dịch *</label>
+                    <input type="text" id="tenChienDich" required
+                        class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+                        placeholder="VD: Hỗ trợ trẻ em vùng cao">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Mô tả ngắn *</label>
+                    <textarea id="moTa" rows="2" required
+                        class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+                        placeholder="Mô tả ngắn gọn về chiến dịch"></textarea>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Nội dung chi tiết</label>
+                    <textarea id="noiDungChiTiet" rows="4"
+                        class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+                        placeholder="Mô tả chi tiết về mục đích, đối tượng hưởng lợi..."></textarea>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Mục tiêu quyên góp (VNĐ)</label>
+                        <input type="number" id="mucTieuTien" min="0" step="100000"
+                            class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+                            placeholder="0">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Số TNV cần</label>
+                        <input type="number" id="mucTieuTNV" min="0"
+                            class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+                            placeholder="0">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Ngày bắt đầu *</label>
+                        <input type="date" id="ngayBatDau" required
+                            class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Ngày kết thúc *</label>
+                        <input type="date" id="ngayKetThuc" required
+                            class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Địa điểm</label>
+                    <input type="text" id="diaDiem"
+                        class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+                        placeholder="VD: Hà Giang, Việt Nam">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Mục tiêu hiện vật</label>
+                    <input type="text" id="mucTieuHienVat"
+                        class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+                        placeholder="VD: 100 áo ấm, 50 chăn bông">
+                </div>
+
+                <div class="flex gap-3 pt-4 border-t">
+                    <button type="button" onclick="closeModal()" class="flex-1 px-4 py-2 border rounded-lg hover:bg-gray-50">
+                        Hủy
+                    </button>
+                    <button type="submit" class="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                        Lưu chiến dịch
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Xem chi tiết -->
+    <div id="detailModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center overflow-y-auto">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-3xl mx-4 my-8">
+            <div class="flex justify-between items-center p-6 border-b">
+                <h3 class="text-xl font-bold text-gray-800">Chi tiết chiến dịch</h3>
+                <button onclick="closeDetailModal()" class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
+            </div>
+            <div id="detailContent" class="p-6 max-h-[70vh] overflow-y-auto">
+                <!-- Content loaded dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <script src="../../assets/js/config.js"></script>
+    <script>
+        // Check auth
+        if (!auth.isLoggedInAs('tochuc')) {
+            window.location.href = '../login-tochuc.html';
+        }
+
+        let allCampaigns = [];
+        let currentFilter = 'all';
+
+        function logout() {
+            auth.logoutAs('tochuc');
+            window.location.href = '../login-tochuc.html';
+        }
+
+        function formatMoney(a) { return new Intl.NumberFormat('vi-VN').format(a) + 'đ'; }
+        function formatDate(d) { return d ? new Date(d).toLocaleDateString('vi-VN') : '-'; }
+
+        function getStatusBadge(status) {
+            const badges = {
+                'cho_duyet': '<span class="px-2 py-1 bg-yellow-100 text-yellow-700 rounded-full text-xs">Chờ duyệt</span>',
+                'dang_dien_ra': '<span class="px-2 py-1 bg-green-100 text-green-700 rounded-full text-xs">Đang diễn ra</span>',
+                'da_ket_thuc': '<span class="px-2 py-1 bg-gray-100 text-gray-700 rounded-full text-xs">Đã kết thúc</span>',
+                'tu_choi': '<span class="px-2 py-1 bg-red-100 text-red-700 rounded-full text-xs">Bị từ chối</span>',
+                'tam_dung': '<span class="px-2 py-1 bg-orange-100 text-orange-700 rounded-full text-xs">Tạm dừng</span>'
+            };
+            return badges[status] || status;
+        }
+
+        // Load campaigns
+        async function loadCampaigns() {
+            const token = auth.getToken('tochuc');
+            console.log('Loading campaigns with token:', token ? 'có token' : 'không có token');
+            
+            if (!token) {
+                document.getElementById('campaignList').innerHTML = 
+                    '<div class="bg-white rounded-lg shadow p-6 text-center text-red-500">Chưa đăng nhập. Vui lòng đăng nhập lại.</div>';
+                return;
+            }
+
+            try {
+                const res = await fetch(`${CONFIG.API_URL}/organization/chien-dich`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await res.json();
+                console.log('API response:', data);
+
+                if (data.success) {
+                    allCampaigns = data.data;
+                    renderCampaigns();
+                } else {
+                    document.getElementById('campaignList').innerHTML = 
+                        `<div class="bg-white rounded-lg shadow p-6 text-center text-red-500">Lỗi: ${data.message}</div>`;
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('campaignList').innerHTML = 
+                    '<div class="bg-white rounded-lg shadow p-6 text-center text-red-500">Lỗi kết nối server</div>';
+            }
+        }
+
+        function filterCampaigns(filter) {
+            currentFilter = filter;
+            // Update tabs UI
+            document.querySelectorAll('.filter-tab').forEach(tab => {
+                if (tab.dataset.filter === filter) {
+                    tab.classList.add('border-b-2', 'border-blue-500', 'text-blue-600');
+                    tab.classList.remove('text-gray-500');
+                } else {
+                    tab.classList.remove('border-b-2', 'border-blue-500', 'text-blue-600');
+                    tab.classList.add('text-gray-500');
+                }
+            });
+            renderCampaigns();
+        }
+
+        function renderCampaigns() {
+            let filtered = allCampaigns;
+            if (currentFilter !== 'all') {
+                filtered = allCampaigns.filter(c => c.trang_thai === currentFilter);
+            }
+
+            if (filtered.length === 0) {
+                document.getElementById('campaignList').innerHTML = 
+                    '<div class="bg-white rounded-lg shadow p-6 text-center text-gray-500">Không có chiến dịch nào</div>';
+                return;
+            }
+
+            document.getElementById('campaignList').innerHTML = filtered.map(c => {
+                const progress = c.muc_tieu_tien > 0 ? (c.so_tien_da_quyen_gop / c.muc_tieu_tien * 100).toFixed(1) : 0;
+                const tnvProgress = c.muc_tieu_tinh_nguyen_vien > 0 ? 
+                    (c.so_tinh_nguyen_vien_hien_tai / c.muc_tieu_tinh_nguyen_vien * 100).toFixed(1) : 0;
+
+                return `
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="flex-1">
+                                <div class="flex items-center gap-3 mb-2">
+                                    <h3 class="text-lg font-bold text-gray-800">${c.ten_chien_dich}</h3>
+                                    ${getStatusBadge(c.trang_thai)}
+                                </div>
+                                <p class="text-gray-600 text-sm line-clamp-2">${c.mo_ta || ''}</p>
+                            </div>
+                            <div class="flex gap-2 ml-4">
+                                <button onclick="viewDetail(${c.chien_dich_id})" class="p-2 text-gray-500 hover:bg-gray-100 rounded" title="Xem chi tiết">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                    </svg>
+                                </button>
+                                <button onclick="editCampaign(${c.chien_dich_id})" class="p-2 text-blue-500 hover:bg-blue-50 rounded" title="Sửa">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+                            <div class="text-center p-3 bg-gray-50 rounded-lg">
+                                <p class="text-xs text-gray-500">Quyên góp</p>
+                                <p class="font-bold text-green-600">${formatMoney(c.so_tien_da_quyen_gop)}</p>
+                                <p class="text-xs text-gray-400">/ ${formatMoney(c.muc_tieu_tien)}</p>
+                            </div>
+                            <div class="text-center p-3 bg-gray-50 rounded-lg">
+                                <p class="text-xs text-gray-500">Tình nguyện viên</p>
+                                <p class="font-bold text-purple-600">${c.so_tinh_nguyen_vien_hien_tai || 0}</p>
+                                <p class="text-xs text-gray-400">/ ${c.muc_tieu_tinh_nguyen_vien || 0}</p>
+                            </div>
+                            <div class="text-center p-3 bg-gray-50 rounded-lg">
+                                <p class="text-xs text-gray-500">Bắt đầu</p>
+                                <p class="font-medium text-gray-700">${formatDate(c.ngay_bat_dau)}</p>
+                            </div>
+                            <div class="text-center p-3 bg-gray-50 rounded-lg">
+                                <p class="text-xs text-gray-500">Kết thúc</p>
+                                <p class="font-medium text-gray-700">${formatDate(c.ngay_ket_thuc)}</p>
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <div>
+                                <div class="flex justify-between text-xs text-gray-500 mb-1">
+                                    <span>Tiến độ quyên góp</span>
+                                    <span>${progress}%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                    <div class="bg-green-500 h-2 rounded-full transition-all" style="width: ${Math.min(progress, 100)}%"></div>
+                                </div>
+                            </div>
+                            ${c.muc_tieu_tinh_nguyen_vien > 0 ? `
+                            <div>
+                                <div class="flex justify-between text-xs text-gray-500 mb-1">
+                                    <span>Tình nguyện viên</span>
+                                    <span>${tnvProgress}%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                    <div class="bg-purple-500 h-2 rounded-full transition-all" style="width: ${Math.min(tnvProgress, 100)}%"></div>
+                                </div>
+                            </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Modal functions
+        function openCreateModal() {
+            document.getElementById('modalTitle').textContent = 'Tạo chiến dịch mới';
+            document.getElementById('campaignForm').reset();
+            document.getElementById('campaignId').value = '';
+            // Set default dates
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('ngayBatDau').value = today;
+            document.getElementById('campaignModal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('campaignModal').classList.add('hidden');
+        }
+
+        function editCampaign(id) {
+            const campaign = allCampaigns.find(c => c.chien_dich_id === id);
+            if (!campaign) return;
+
+            document.getElementById('modalTitle').textContent = 'Sửa chiến dịch';
+            document.getElementById('campaignId').value = id;
+            document.getElementById('tenChienDich').value = campaign.ten_chien_dich || '';
+            document.getElementById('moTa').value = campaign.mo_ta || '';
+            document.getElementById('noiDungChiTiet').value = campaign.noi_dung_chi_tiet || '';
+            document.getElementById('mucTieuTien').value = campaign.muc_tieu_tien || 0;
+            document.getElementById('mucTieuTNV').value = campaign.muc_tieu_tinh_nguyen_vien || 0;
+            document.getElementById('ngayBatDau').value = campaign.ngay_bat_dau ? campaign.ngay_bat_dau.split('T')[0] : '';
+            document.getElementById('ngayKetThuc').value = campaign.ngay_ket_thuc ? campaign.ngay_ket_thuc.split('T')[0] : '';
+            document.getElementById('diaDiem').value = campaign.dia_diem || '';
+            document.getElementById('mucTieuHienVat').value = campaign.muc_tieu_hien_vat || '';
+
+            document.getElementById('campaignModal').classList.remove('hidden');
+        }
+
+        // Form submit
+        document.getElementById('campaignForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const token = auth.getToken('tochuc');
+            const campaignId = document.getElementById('campaignId').value;
+            const isEdit = !!campaignId;
+
+            const payload = {
+                ten_chien_dich: document.getElementById('tenChienDich').value,
+                mo_ta: document.getElementById('moTa').value,
+                noi_dung_chi_tiet: document.getElementById('noiDungChiTiet').value,
+                muc_tieu_tien: parseInt(document.getElementById('mucTieuTien').value) || 0,
+                muc_tieu_tinh_nguyen_vien: parseInt(document.getElementById('mucTieuTNV').value) || 0,
+                ngay_bat_dau: document.getElementById('ngayBatDau').value,
+                ngay_ket_thuc: document.getElementById('ngayKetThuc').value,
+                dia_diem: document.getElementById('diaDiem').value,
+                muc_tieu_hien_vat: document.getElementById('mucTieuHienVat').value
+            };
+
+            try {
+                const url = isEdit 
+                    ? `${CONFIG.API_URL}/organization/chien-dich/${campaignId}`
+                    : `${CONFIG.API_URL}/organization/chien-dich`;
+                
+                const res = await fetch(url, {
+                    method: isEdit ? 'PUT' : 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify(payload)
+                });
+                const data = await res.json();
+
+                if (data.success) {
+                    alert(isEdit ? 'Cập nhật thành công!' : 'Tạo chiến dịch thành công! Đang chờ Admin phê duyệt.');
+                    closeModal();
+                    loadCampaigns();
+                } else {
+                    alert(data.message || 'Có lỗi xảy ra');
+                }
+            } catch (error) {
+                alert('Lỗi kết nối server');
+            }
+        });
+
+        // View detail
+        function viewDetail(id) {
+            const c = allCampaigns.find(c => c.chien_dich_id === id);
+            if (!c) return;
+
+            const progress = c.muc_tieu_tien > 0 ? (c.so_tien_da_quyen_gop / c.muc_tieu_tien * 100).toFixed(1) : 0;
+
+            document.getElementById('detailContent').innerHTML = `
+                <div class="space-y-6">
+                    <div>
+                        <div class="flex items-center gap-3 mb-2">
+                            <h2 class="text-2xl font-bold text-gray-800">${c.ten_chien_dich}</h2>
+                            ${getStatusBadge(c.trang_thai)}
+                        </div>
+                        <p class="text-gray-600">${c.mo_ta || ''}</p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="p-4 bg-green-50 rounded-lg">
+                            <p class="text-sm text-green-600">Đã quyên góp</p>
+                            <p class="text-2xl font-bold text-green-700">${formatMoney(c.so_tien_da_quyen_gop)}</p>
+                            <p class="text-sm text-green-600">Mục tiêu: ${formatMoney(c.muc_tieu_tien)}</p>
+                            <div class="w-full bg-green-200 rounded-full h-2 mt-2">
+                                <div class="bg-green-500 h-2 rounded-full" style="width: ${Math.min(progress, 100)}%"></div>
+                            </div>
+                        </div>
+                        <div class="p-4 bg-purple-50 rounded-lg">
+                            <p class="text-sm text-purple-600">Tình nguyện viên</p>
+                            <p class="text-2xl font-bold text-purple-700">${c.so_tinh_nguyen_vien_hien_tai || 0}</p>
+                            <p class="text-sm text-purple-600">Mục tiêu: ${c.muc_tieu_tinh_nguyen_vien || 0}</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4 text-sm">
+                        <div>
+                            <p class="text-gray-500">Ngày bắt đầu</p>
+                            <p class="font-medium">${formatDate(c.ngay_bat_dau)}</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-500">Ngày kết thúc</p>
+                            <p class="font-medium">${formatDate(c.ngay_ket_thuc)}</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-500">Địa điểm</p>
+                            <p class="font-medium">${c.dia_diem || '-'}</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-500">Ngày tạo</p>
+                            <p class="font-medium">${formatDate(c.ngay_tao)}</p>
+                        </div>
+                    </div>
+
+                    ${c.noi_dung_chi_tiet ? `
+                    <div>
+                        <p class="text-gray-500 mb-2">Nội dung chi tiết</p>
+                        <div class="p-4 bg-gray-50 rounded-lg text-gray-700 whitespace-pre-wrap">${c.noi_dung_chi_tiet}</div>
+                    </div>
+                    ` : ''}
+
+                    <div class="flex gap-3 pt-4 border-t">
+                        <button onclick="closeDetailModal()" class="flex-1 px-4 py-2 border rounded-lg hover:bg-gray-50">
+                            Đóng
+                        </button>
+                        <button onclick="closeDetailModal(); editCampaign(${c.chien_dich_id})" class="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                            Chỉnh sửa
+                        </button>
+                    </div>
+                </div>
+            `;
+            document.getElementById('detailModal').classList.remove('hidden');
+        }
+
+        function closeDetailModal() {
+            document.getElementById('detailModal').classList.add('hidden');
+        }
+
+        // Init
+        loadCampaigns();
+    </script>
+</body>
+</html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập - Thiện Nguyện</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <!-- Google Sign-In -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+
+<body class="bg-gray-100 min-h-screen">
+    <!-- Header -->
+    <header class="bg-white shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+            <a href="../index.html" class="flex items-center gap-2">
+                <div class="w-10 h-10 gradient-heart rounded-full flex items-center justify-center">
+                    <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd"
+                            d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+                            clip-rule="evenodd" />
+                    </svg>
+                </div>
+                <span class="text-2xl font-bold text-gray-800">Thiện Nguyện</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-6xl mx-auto px-4 py-8 lg:py-16">
+        <div class="flex flex-col lg:flex-row items-center gap-8 lg:gap-20">
+            <!-- Left - Branding -->
+            <div class="flex-1 text-center lg:text-left max-w-lg">
+                <h1 class="text-4xl lg:text-5xl font-bold text-blue-600 mb-4">Thiện Nguyện</h1>
+                <p class="text-xl lg:text-2xl text-gray-600 leading-relaxed">
+                    Kết nối yêu thương, lan tỏa điều tốt đẹp đến mọi người trong cộng đồng.
+                </p>
+            </div>
+
+            <!-- Right - Login Form -->
+            <div class="w-full max-w-md">
+                <div class="bg-white rounded-lg card-shadow p-6">
+                    <!-- Alert -->
+                    <div id="alertBox" class="hidden mb-4"></div>
+
+                    <!-- Login Form -->
+                    <form id="loginForm" class="space-y-4">
+                        <input type="email" id="email" placeholder="Email"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg input-focus outline-none text-base"
+                            required>
+                        <div class="relative">
+                            <input type="password" id="password" placeholder="Mật khẩu"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg input-focus outline-none text-base pr-12"
+                                required>
+                            <button type="button" onclick="togglePassword('password')"
+                                class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                </svg>
+                            </button>
+                        </div>
+                        <button type="submit" id="loginBtn"
+                            class="w-full gradient-primary text-white font-semibold py-3 rounded-lg btn-hover text-lg">
+                            Đăng nhập
+                        </button>
+                    </form>
+
+                    <div class="text-center mt-4">
+                        <a href="#" class="text-blue-600 hover:underline text-sm">Quên mật khẩu?</a>
+                    </div>
+
+                    <!-- Divider -->
+                    <div class="divider my-5">
+                        <span>hoặc</span>
+                    </div>
+
+                    <!-- Google Sign In Button Container -->
+                    <div id="googleBtnContainer" class="flex justify-center"></div>
+
+                    <hr class="my-5">
+
+                    <!-- Register Button -->
+                    <div class="text-center">
+                        <a href="register.html"
+                            class="inline-block gradient-green text-white font-semibold px-8 py-3 rounded-lg btn-hover">
+                            Tạo tài khoản mới
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <p class="text-center text-gray-600 text-sm mt-6">
+                    Bạn là tổ chức từ thiện?
+                    <a href="login-tochuc.html" class="text-blue-600 hover:underline font-medium">Đăng nhập tại đây</a>
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t mt-auto">
+        <div class="max-w-6xl mx-auto px-4 py-6">
+            <div class="flex flex-wrap justify-center gap-4 text-sm text-gray-500">
+                <a href="#" class="hover:underline">Giới thiệu</a>
+                <a href="#" class="hover:underline">Điều khoản</a>
+                <a href="#" class="hover:underline">Quyền riêng tư</a>
+                <a href="#" class="hover:underline">Trợ giúp</a>
+            </div>
+            <p class="text-center text-gray-400 text-sm mt-4">© 2025 Thiện Nguyện</p>
+        </div>
+    </footer>
+
+    <script src="../assets/js/config.js"></script>
+    <script>
+        // Toggle password visibility
+        function togglePassword(inputId) {
+            const input = document.getElementById(inputId);
+            input.type = input.type === 'password' ? 'text' : 'password';
+        }
+
+        // Initialize Google Sign In when page loads
+        window.onload = function () {
+            google.accounts.id.initialize({
+                client_id: CONFIG.GOOGLE_CLIENT_ID,
+                callback: handleGoogleResponse
+            });
+
+            // Render Google button
+            google.accounts.id.renderButton(
+                document.getElementById('googleBtnContainer'),
+                {
+                    theme: 'outline',
+                    size: 'large',
+                    width: '100%',
+                    text: 'signin_with',
+                    shape: 'rectangular'
+                }
+            );
+        };
+
+        async function handleGoogleResponse(response) {
+            const alertBox = document.getElementById('alertBox');
+            try {
+                ui.showAlert(alertBox, 'Đang xử lý...', 'success');
+
+                const res = await api.post('/auth/google', {
+                    credential: response.credential
+                });
+                const data = await res.json();
+
+                if (!res.ok) throw new Error(data.message || 'Đăng nhập Google thất bại');
+
+                auth.setUser(data.token, data.user, 'user');
+                ui.showAlert(alertBox, 'Đăng nhập thành công!', 'success');
+                setTimeout(() => window.location.href = 'home.html', 1000);
+            } catch (err) {
+                ui.showAlert(alertBox, err.message, 'error');
+            }
+        }
+
+        // Login Form Submit
+        document.getElementById('loginForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const btn = document.getElementById('loginBtn');
+            const alertBox = document.getElementById('alertBox');
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+
+            ui.setLoading(btn, true);
+            ui.hideAlert(alertBox);
+
+            try {
+                const res = await api.post('/auth/login/user', { email, password });
+                const data = await res.json();
+
+                if (!res.ok) throw new Error(data.message || 'Email hoặc mật khẩu không đúng');
+
+                auth.setUser(data.token, data.user, 'user');
+                ui.showAlert(alertBox, 'Đăng nhập thành công!', 'success');
+                setTimeout(() => window.location.href = 'home.html', 1000);
+            } catch (err) {
+                ui.showAlert(alertBox, err.message, 'error');
+            } finally {
+                ui.setLoading(btn, false, 'Đăng nhập');
+            }
+        });
+
+        // Check if already logged in as USER (không ảnh hưởng tổ chức)
+        if (auth.isLoggedInAs('user')) {
+            window.location.href = 'home.html';
+        }
+    </script>
+</body>
+
+</html>

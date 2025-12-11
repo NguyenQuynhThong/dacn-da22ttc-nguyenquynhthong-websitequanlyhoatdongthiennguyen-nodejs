@@ -8,6 +8,11 @@ const authRoutes = require('./routes/authRoutes');
 const publicRoutes = require('./routes/publicRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const organizationRoutes = require('./routes/organizationRoutes');
+const campaignRoutes = require('./routes/campaignRoutes');
+const toChucRoutes = require('./routes/toChucRoutes');
+const socialRoutes = require('./routes/socialRoutes');
+const profileRoutes = require('./routes/profileRoutes');
+const followRoutes = require('./routes/followRoutes');
 
 // Tạo Express app
 const app = express();
@@ -18,7 +23,7 @@ const app = express();
 
 // CORS - Cho phép frontend gọi API
 app.use(cors({
-    origin: ['http://localhost:3000', 'http://localhost:5500', 'http://127.0.0.1:5500', 'http://127.0.0.1:3000'],
+    origin: true, // Cho phép tất cả origin trong development
     credentials: true
 }));
 
@@ -28,13 +33,15 @@ app.use(express.json());
 // Parse URL-encoded request body
 app.use(express.urlencoded({ extended: true }));
 
-// Logging middleware (cho development)
-if (process.env.NODE_ENV === 'development') {
-    app.use((req, res, next) => {
-        console.log(`${new Date().toISOString()} - ${req.method} ${req.path}`);
-        next();
-    });
-}
+// Serve static files (uploads)
+const path = require('path');
+app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
+
+// Logging middleware - luôn bật để debug
+app.use((req, res, next) => {
+    console.log(`${new Date().toISOString()} - ${req.method} ${req.path}`);
+    next();
+});
 
 // ============================================
 // ROUTES
@@ -54,12 +61,13 @@ app.get('/', (req, res) => {
 app.use('/api/auth', authRoutes);
 app.use('/api', publicRoutes);
 app.use('/api/admin', adminRoutes);
-app.use('/api/to-chuc', organizationRoutes);
-
-// TODO: Thêm các routes khác
-// app.use('/api/chien-dich', chienDichRoutes);
-// app.use('/api/nguoi-dung', nguoiDungRoutes);
-// app.use('/api/quyen-gop', quyenGopRoutes);
+app.use('/api/organization', organizationRoutes); // Route cho tổ chức quản lý
+app.use('/api/to-chuc', organizationRoutes); // Alias cũ
+app.use('/api/chien-dich', campaignRoutes);
+app.use('/api/tochuc', toChucRoutes);
+app.use('/api/social', socialRoutes);
+app.use('/api/profile', profileRoutes);
+app.use('/api/follow', followRoutes);
 
 // ============================================
 // ERROR HANDLING

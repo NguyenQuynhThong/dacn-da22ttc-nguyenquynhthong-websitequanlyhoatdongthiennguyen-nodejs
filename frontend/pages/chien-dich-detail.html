@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi tiết chiến dịch - Thiện Nguyện</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+
+<body class="bg-gray-100 min-h-screen">
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-2 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <a href="home.html" class="flex items-center gap-2">
+                    <div class="w-10 h-10 gradient-heart rounded-full flex items-center justify-center">
+                        <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                </a>
+            </div>
+            <nav class="hidden md:flex items-center gap-2">
+                <a href="home.html" class="p-3 rounded-lg text-gray-500 hover:bg-gray-100">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+                    </svg>
+                </a>
+                <a href="chien-dich.html" class="p-3 rounded-lg bg-blue-50 text-blue-600">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                    </svg>
+                </a>
+            </nav>
+            <div class="flex items-center gap-3">
+                <div class="relative" id="userMenu">
+                    <button onclick="toggleUserMenu()" class="flex items-center gap-2 p-1 rounded-full hover:bg-gray-100">
+                        <div class="w-9 h-9 bg-blue-500 rounded-full flex items-center justify-center text-white font-semibold" id="userAvatar">U</div>
+                    </button>
+                    <div id="userDropdown" class="hidden absolute right-0 mt-2 w-72 bg-white rounded-lg shadow-lg border py-2">
+                        <div class="px-4 py-3 border-b">
+                            <p class="font-semibold text-gray-800" id="userName">Người dùng</p>
+                            <p class="text-sm text-gray-500" id="userEmail">user@email.com</p>
+                        </div>
+                        <hr class="my-2">
+                        <button onclick="logout()" class="flex items-center gap-3 px-4 py-2 hover:bg-gray-100 w-full text-left text-red-600">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                            </svg>
+                            <span>Đăng xuất</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-6xl mx-auto px-4 py-6">
+        <div id="campaignDetail" class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div class="lg:col-span-3 text-center py-10 text-gray-500">Đang tải...</div>
+        </div>
+    </main>
+
+
+    <!-- Modal Quyên góp -->
+    <div id="donateModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-md mx-4 p-6">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-bold text-gray-800">Quyên góp</h3>
+                <button onclick="closeDonateModal()" class="text-gray-500 hover:text-gray-700">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <form id="donateForm">
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Số tiền (VNĐ)</label>
+                    <input type="number" id="donateAmount" min="10000" step="10000" required
+                        class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+                    <div class="flex gap-2 mt-2">
+                        <button type="button" onclick="setAmount(50000)" class="px-3 py-1 bg-gray-100 rounded hover:bg-gray-200 text-sm">50K</button>
+                        <button type="button" onclick="setAmount(100000)" class="px-3 py-1 bg-gray-100 rounded hover:bg-gray-200 text-sm">100K</button>
+                        <button type="button" onclick="setAmount(200000)" class="px-3 py-1 bg-gray-100 rounded hover:bg-gray-200 text-sm">200K</button>
+                        <button type="button" onclick="setAmount(500000)" class="px-3 py-1 bg-gray-100 rounded hover:bg-gray-200 text-sm">500K</button>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Lời nhắn</label>
+                    <textarea id="donateNote" rows="2" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"></textarea>
+                </div>
+                <div class="mb-4">
+                    <label class="flex items-center gap-2">
+                        <input type="checkbox" id="donateAnonymous" class="rounded">
+                        <span class="text-sm text-gray-700">Quyên góp ẩn danh</span>
+                    </label>
+                </div>
+                <button type="submit" class="w-full gradient-primary text-white py-3 rounded-lg font-semibold btn-hover">Xác nhận quyên góp</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Tham gia -->
+    <div id="joinModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-md mx-4 p-6">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-bold text-gray-800">Đăng ký tham gia</h3>
+                <button onclick="closeJoinModal()" class="text-gray-500 hover:text-gray-700">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <form id="joinForm">
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Lý do muốn tham gia</label>
+                    <textarea id="joinReason" rows="3" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"></textarea>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Kỹ năng của bạn</label>
+                    <textarea id="joinSkills" rows="2" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"></textarea>
+                </div>
+                <button type="submit" class="w-full gradient-green text-white py-3 rounded-lg font-semibold btn-hover">Gửi đăng ký</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="../assets/js/config.js"></script>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const campaignId = urlParams.get('id');
+        let campaignData = null;
+
+        const user = auth.getUser('user');
+        if (user) {
+            document.getElementById('userAvatar').textContent = user.ho_ten?.charAt(0).toUpperCase() || 'U';
+            document.getElementById('userName').textContent = user.ho_ten || 'Người dùng';
+            document.getElementById('userEmail').textContent = user.email || '';
+        }
+
+        function toggleUserMenu() { document.getElementById('userDropdown').classList.toggle('hidden'); }
+        function logout() { auth.logoutAs('user'); window.location.href = 'login.html'; }
+        function formatMoney(a) { return new Intl.NumberFormat('vi-VN').format(a) + 'đ'; }
+        function formatDate(d) { return new Date(d).toLocaleDateString('vi-VN'); }
+
+        function getStatusBadge(s) {
+            const b = {
+                'dang_dien_ra': '<span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm">Đang diễn ra</span>',
+                'cho_duyet': '<span class="px-3 py-1 bg-yellow-100 text-yellow-700 rounded-full text-sm">Chờ duyệt</span>',
+                'ket_thuc': '<span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">Đã kết thúc</span>'
+            };
+            return b[s] || '';
+        }
+
+        async function loadCampaign() {
+            if (!campaignId) {
+                document.getElementById('campaignDetail').innerHTML = '<div class="lg:col-span-3 text-center py-10 text-red-500">Không tìm thấy chiến dịch</div>';
+                return;
+            }
+
+            try {
+                const res = await fetch(`${CONFIG.API_URL}/chien-dich/${campaignId}`);
+                const data = await res.json();
+
+                if (!data.success) {
+                    document.getElementById('campaignDetail').innerHTML = '<div class="lg:col-span-3 text-center py-10 text-red-500">Không tìm thấy chiến dịch</div>';
+                    return;
+                }
+
+                campaignData = data.data;
+                const c = campaignData;
+                const progress = c.muc_tieu_tien > 0 ? (c.so_tien_da_quyen_gop / c.muc_tieu_tien * 100).toFixed(1) : 0;
+                const defaultImg = 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=800';
+
+                document.title = c.ten_chien_dich + ' - Thiện Nguyện';
+
+                document.getElementById('campaignDetail').innerHTML = `
+                    <!-- Left Column -->
+                    <div class="lg:col-span-2 space-y-6">
+                        <div class="bg-white rounded-lg shadow overflow-hidden">
+                            <img src="${c.hinh_anh_url || defaultImg}" alt="${c.ten_chien_dich}" 
+                                class="w-full h-64 md:h-96 object-cover" onerror="this.src='${defaultImg}'">
+                            <div class="p-6">
+                                <div class="flex items-center gap-2 mb-4">
+                                    ${getStatusBadge(c.trang_thai)}
+                                    <span class="text-gray-500 text-sm">📅 ${formatDate(c.ngay_bat_dau)} - ${formatDate(c.ngay_ket_thuc)}</span>
+                                </div>
+                                <h1 class="text-2xl md:text-3xl font-bold text-gray-800 mb-4">${c.ten_chien_dich}</h1>
+                                <p class="text-gray-600 mb-6">${c.mo_ta || ''}</p>
+                                
+                                <div class="border-t pt-6">
+                                    <h2 class="text-xl font-bold text-gray-800 mb-4">Nội dung chi tiết</h2>
+                                    <div class="prose max-w-none text-gray-700">
+                                        ${c.noi_dung_chi_tiet || '<p>Chưa có nội dung chi tiết</p>'}
+                                    </div>
+                                </div>
+
+                                ${c.muc_tieu_hien_vat ? `
+                                <div class="border-t pt-6 mt-6">
+                                    <h2 class="text-xl font-bold text-gray-800 mb-4">Mục tiêu hiện vật</h2>
+                                    <p class="text-gray-700">${c.muc_tieu_hien_vat}</p>
+                                </div>
+                                ` : ''}
+                            </div>
+                        </div>
+
+                        <!-- Donations List -->
+                        <div class="bg-white rounded-lg shadow p-6">
+                            <h2 class="text-xl font-bold text-gray-800 mb-4">Danh sách quyên góp</h2>
+                            <div id="donationsList" class="space-y-3">Đang tải...</div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column -->
+                    <div class="space-y-6">
+                        <!-- Progress Card -->
+                        <div class="bg-white rounded-lg shadow p-6">
+                            <div class="mb-4">
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-2xl font-bold text-green-600">${formatMoney(c.so_tien_da_quyen_gop)}</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-3">
+                                    <div class="bg-green-500 h-3 rounded-full transition-all" style="width: ${Math.min(progress, 100)}%"></div>
+                                </div>
+                                <div class="flex justify-between text-sm text-gray-500 mt-2">
+                                    <span>${progress}% đạt được</span>
+                                    <span>Mục tiêu: ${formatMoney(c.muc_tieu_tien)}</span>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-4 mb-6 text-center">
+                                <div class="bg-gray-50 rounded-lg p-3">
+                                    <p class="text-2xl font-bold text-blue-600">${c.so_nguoi_quyen_gop || 0}</p>
+                                    <p class="text-sm text-gray-500">Người quyên góp</p>
+                                </div>
+                                <div class="bg-gray-50 rounded-lg p-3">
+                                    <p class="text-2xl font-bold text-purple-600">${c.so_nguoi_tham_gia || 0}/${c.muc_tieu_tinh_nguyen_vien}</p>
+                                    <p class="text-sm text-gray-500">Tình nguyện viên</p>
+                                </div>
+                            </div>
+
+                            ${c.trang_thai === 'dang_dien_ra' ? `
+                            <div class="space-y-3">
+                                <button onclick="openDonateModal()" class="w-full gradient-primary text-white py-3 rounded-lg font-semibold btn-hover">
+                                    ❤️ Quyên góp ngay
+                                </button>
+                                <button onclick="openJoinModal()" class="w-full gradient-green text-white py-3 rounded-lg font-semibold btn-hover">
+                                    🙋 Đăng ký tham gia
+                                </button>
+                            </div>
+                            ` : '<p class="text-center text-gray-500">Chiến dịch đã kết thúc</p>'}
+                        </div>
+
+                        <!-- Organization Card -->
+                        <div class="bg-white rounded-lg shadow p-6">
+                            <h3 class="font-bold text-gray-800 mb-4">Tổ chức thực hiện</h3>
+                            <div class="flex items-center gap-3 mb-4">
+                                <div class="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center text-white text-xl font-bold">
+                                    ${c.ten_to_chuc.charAt(0)}
+                                </div>
+                                <div>
+                                    <p class="font-semibold text-gray-800">${c.ten_to_chuc}</p>
+                                    <p class="text-sm text-gray-500">${c.to_chuc_dia_chi || ''}</p>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 text-sm">${c.to_chuc_mo_ta || ''}</p>
+                        </div>
+
+                        <!-- Location Card -->
+                        <div class="bg-white rounded-lg shadow p-6">
+                            <h3 class="font-bold text-gray-800 mb-2">📍 Địa điểm</h3>
+                            <p class="text-gray-600">${c.dia_diem || 'Chưa xác định'}</p>
+                        </div>
+                    </div>
+                `;
+
+                loadDonations();
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('campaignDetail').innerHTML = '<div class="lg:col-span-3 text-center py-10 text-red-500">Lỗi tải dữ liệu</div>';
+            }
+        }
+
+        async function loadDonations() {
+            try {
+                const res = await fetch(`${CONFIG.API_URL}/chien-dich/${campaignId}/donations?limit=10`);
+                const data = await res.json();
+
+                if (!data.success || data.data.length === 0) {
+                    document.getElementById('donationsList').innerHTML = '<p class="text-gray-500 text-center">Chưa có quyên góp nào</p>';
+                    return;
+                }
+
+                document.getElementById('donationsList').innerHTML = data.data.map(d => `
+                    <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+                        <div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center text-white font-semibold">
+                            ${d.nguoi_gop.charAt(0)}
+                        </div>
+                        <div class="flex-1">
+                            <p class="font-medium text-gray-800">${d.nguoi_gop}</p>
+                            <p class="text-sm text-gray-500">${d.ghi_chu || 'Chúc chiến dịch thành công!'}</p>
+                        </div>
+                        <div class="text-right">
+                            <p class="font-bold text-green-600">${formatMoney(d.so_tien)}</p>
+                            <p class="text-xs text-gray-400">${formatDate(d.ngay_gop)}</p>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (error) {
+                document.getElementById('donationsList').innerHTML = '<p class="text-red-500">Lỗi tải dữ liệu</p>';
+            }
+        }
+
+        // Modal functions
+        function openDonateModal() {
+            if (!auth.isLoggedInAs('user')) { alert('Vui lòng đăng nhập'); window.location.href = 'login.html'; return; }
+            document.getElementById('donateModal').classList.remove('hidden');
+        }
+        function closeDonateModal() { document.getElementById('donateModal').classList.add('hidden'); document.getElementById('donateForm').reset(); }
+        function setAmount(a) { document.getElementById('donateAmount').value = a; }
+
+        function openJoinModal() {
+            if (!auth.isLoggedInAs('user')) { alert('Vui lòng đăng nhập'); window.location.href = 'login.html'; return; }
+            document.getElementById('joinModal').classList.remove('hidden');
+        }
+        function closeJoinModal() { document.getElementById('joinModal').classList.add('hidden'); document.getElementById('joinForm').reset(); }
+
+        document.getElementById('donateForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const token = auth.getToken('user');
+            try {
+                const res = await fetch(`${CONFIG.API_URL}/chien-dich/${campaignId}/donate`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                    body: JSON.stringify({
+                        so_tien: parseInt(document.getElementById('donateAmount').value),
+                        ghi_chu: document.getElementById('donateNote').value,
+                        an_danh: document.getElementById('donateAnonymous').checked
+                    })
+                });
+                const data = await res.json();
+                if (data.success) { alert('Quyên góp thành công!'); closeDonateModal(); loadCampaign(); }
+                else alert(data.message);
+            } catch (e) { alert('Lỗi kết nối'); }
+        });
+
+        document.getElementById('joinForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const token = auth.getToken('user');
+            try {
+                const res = await fetch(`${CONFIG.API_URL}/chien-dich/${campaignId}/join`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                    body: JSON.stringify({
+                        ly_do_tham_gia: document.getElementById('joinReason').value,
+                        ky_nang: document.getElementById('joinSkills').value
+                    })
+                });
+                const data = await res.json();
+                if (data.success) { alert('Đăng ký thành công! Vui lòng chờ phê duyệt.'); closeJoinModal(); }
+                else alert(data.message);
+            } catch (e) { alert('Lỗi kết nối'); }
+        });
+
+        loadCampaign();
+    </script>
+</body>
+</html>

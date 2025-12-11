@@ -9,8 +9,8 @@ const { verifyToken } = require('../middlewares/auth');
 const registerValidation = [
     body('email').isEmail().withMessage('Email không hợp lệ'),
     body('mat_khau').isLength({ min: 6 }).withMessage('Mật khẩu phải có ít nhất 6 ký tự'),
-    body('ten_day_du').notEmpty().withMessage('Tên đầy đủ không được để trống'),
-    body('vai_tro').optional().isIn(['admin', 'to_chuc', 'tinh_nguyen_vien', 'nha_hao_tam'])
+    body('ho_ten').notEmpty().withMessage('Họ tên không được để trống'),
+    body('vai_tro').optional().isIn(['admin', 'to_chuc', 'tinh_nguyen_vien', 'nha_hao_tam', 'manh_thuong_quan'])
         .withMessage('Vai trò không hợp lệ')
 ];
 
@@ -27,6 +27,16 @@ const changePasswordValidation = [
 // Routes công khai (không cần token)
 router.post('/register', registerValidation, authController.register);
 router.post('/login', loginValidation, authController.login);
+
+// Routes đăng nhập/đăng ký riêng cho từng loại user
+router.post('/login/user', authController.loginUser);
+router.post('/register/user', authController.registerUser);
+router.post('/login/tochuc', authController.loginToChuc);
+router.post('/register/tochuc', authController.registerToChuc);
+router.post('/login/admin', authController.loginAdmin);
+
+// Google OAuth
+router.post('/google', authController.googleAuth);
 
 // Routes cần xác thực
 router.get('/me', verifyToken, authController.getCurrentUser);

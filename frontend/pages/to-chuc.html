@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tổ chức từ thiện - Thiện Nguyện</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+
+<body class="bg-gray-100 min-h-screen">
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-2 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <a href="home.html" class="flex items-center gap-2">
+                    <div class="w-10 h-10 gradient-heart rounded-full flex items-center justify-center">
+                        <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                </a>
+                <div class="relative">
+                    <input type="text" id="searchInput" placeholder="Tìm kiếm tổ chức..."
+                        class="w-64 pl-10 pr-4 py-2 bg-gray-100 rounded-full outline-none focus:bg-white focus:ring-2 focus:ring-blue-500">
+                    <svg class="w-5 h-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                </div>
+            </div>
+
+            <nav class="hidden md:flex items-center gap-2">
+                <a href="home.html" class="p-3 rounded-lg text-gray-500 hover:bg-gray-100">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+                    </svg>
+                </a>
+                <a href="chien-dich.html" class="p-3 rounded-lg text-gray-500 hover:bg-gray-100">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                    </svg>
+                </a>
+                <a href="to-chuc.html" class="p-3 rounded-lg bg-blue-50 text-blue-600">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                    </svg>
+                </a>
+            </nav>
+
+            <div class="flex items-center gap-3">
+                <div class="relative" id="userMenu">
+                    <button onclick="toggleUserMenu()" class="flex items-center gap-2 p-1 rounded-full hover:bg-gray-100">
+                        <div class="w-9 h-9 bg-blue-500 rounded-full flex items-center justify-center text-white font-semibold" id="userAvatar">U</div>
+                    </button>
+                    <div id="userDropdown" class="hidden absolute right-0 mt-2 w-72 bg-white rounded-lg shadow-lg border py-2">
+                        <div class="px-4 py-3 border-b">
+                            <p class="font-semibold text-gray-800" id="userName">Người dùng</p>
+                            <p class="text-sm text-gray-500" id="userEmail">user@email.com</p>
+                        </div>
+                        <hr class="my-2">
+                        <button onclick="logout()" class="flex items-center gap-3 px-4 py-2 hover:bg-gray-100 w-full text-left text-red-600">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                            </svg>
+                            <span>Đăng xuất</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-6xl mx-auto px-4 py-6">
+        <div class="mb-6">
+            <h1 class="text-2xl font-bold text-gray-800">Tổ chức từ thiện</h1>
+            <p class="text-gray-600">Khám phá các tổ chức từ thiện uy tín</p>
+        </div>
+
+        <!-- Filters -->
+        <div class="bg-white rounded-lg shadow p-4 mb-6">
+            <div class="flex flex-wrap gap-4 items-center">
+                <div class="flex-1 min-w-[200px]">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Lĩnh vực</label>
+                    <select id="filterLinhVuc" class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+                        <option value="">Tất cả lĩnh vực</option>
+                        <option value="giao_duc">Giáo dục</option>
+                        <option value="y_te">Y tế</option>
+                        <option value="moi_truong">Môi trường</option>
+                        <option value="cuu_tro">Cứu trợ</option>
+                        <option value="tre_em">Trẻ em</option>
+                        <option value="nguoi_gia">Người già</option>
+                        <option value="khac">Khác</option>
+                    </select>
+                </div>
+                <div class="pt-6">
+                    <button onclick="loadOrganizations()" class="px-6 py-2 gradient-primary text-white rounded-lg btn-hover">Lọc</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Organization Grid -->
+        <div id="orgGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="col-span-full text-center py-10 text-gray-500">Đang tải...</div>
+        </div>
+
+        <!-- Pagination -->
+        <div id="pagination" class="flex justify-center gap-2 mt-8"></div>
+    </main>
+
+
+    <script src="../assets/js/config.js"></script>
+    <script>
+        let currentPage = 1;
+        const limit = 12;
+
+        const user = auth.getUser('user');
+        if (user) {
+            document.getElementById('userAvatar').textContent = user.ho_ten?.charAt(0).toUpperCase() || 'U';
+            document.getElementById('userName').textContent = user.ho_ten || 'Người dùng';
+            document.getElementById('userEmail').textContent = user.email || '';
+        }
+
+        function toggleUserMenu() { document.getElementById('userDropdown').classList.toggle('hidden'); }
+        document.addEventListener('click', e => {
+            if (!document.getElementById('userMenu').contains(e.target)) {
+                document.getElementById('userDropdown').classList.add('hidden');
+            }
+        });
+        function logout() { auth.logoutAs('user'); window.location.href = 'login.html'; }
+
+        function formatMoney(a) { return new Intl.NumberFormat('vi-VN').format(a) + 'đ'; }
+
+        function getFieldLabel(f) {
+            const labels = {
+                'giao_duc': 'Giáo dục', 'y_te': 'Y tế', 'moi_truong': 'Môi trường',
+                'cuu_tro': 'Cứu trợ', 'tre_em': 'Trẻ em', 'nguoi_gia': 'Người già', 'khac': 'Khác'
+            };
+            return labels[f] || f;
+        }
+
+        function getFieldColor(f) {
+            const colors = {
+                'giao_duc': 'bg-blue-100 text-blue-700',
+                'y_te': 'bg-red-100 text-red-700',
+                'moi_truong': 'bg-green-100 text-green-700',
+                'cuu_tro': 'bg-orange-100 text-orange-700',
+                'tre_em': 'bg-pink-100 text-pink-700',
+                'nguoi_gia': 'bg-purple-100 text-purple-700',
+                'khac': 'bg-gray-100 text-gray-700'
+            };
+            return colors[f] || 'bg-gray-100 text-gray-700';
+        }
+
+        async function loadOrganizations(page = 1) {
+            currentPage = page;
+            const grid = document.getElementById('orgGrid');
+            grid.innerHTML = '<div class="col-span-full text-center py-10 text-gray-500">Đang tải...</div>';
+
+            const params = new URLSearchParams({
+                page, limit,
+                linh_vuc: document.getElementById('filterLinhVuc').value,
+                search: document.getElementById('searchInput').value
+            });
+
+            try {
+                const res = await fetch(`${CONFIG.API_URL}/tochuc?${params}`);
+                const data = await res.json();
+
+                if (!data.success || data.data.length === 0) {
+                    grid.innerHTML = '<div class="col-span-full text-center py-10 text-gray-500">Không có tổ chức nào</div>';
+                    document.getElementById('pagination').innerHTML = '';
+                    return;
+                }
+
+                grid.innerHTML = data.data.map(org => `
+                    <div class="bg-white rounded-lg shadow overflow-hidden hover:shadow-lg transition-shadow">
+                        <div class="p-6">
+                            <div class="flex items-center gap-4 mb-4">
+                                <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white text-2xl font-bold flex-shrink-0">
+                                    ${org.logo_url ? `<img src="${org.logo_url}" class="w-full h-full rounded-full object-cover">` : org.ten_to_chuc.charAt(0)}
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <h3 class="font-bold text-gray-800 truncate">${org.ten_to_chuc}</h3>
+                                    <span class="inline-block px-2 py-1 ${getFieldColor(org.linh_vuc)} text-xs rounded-full mt-1">
+                                        ${getFieldLabel(org.linh_vuc)}
+                                    </span>
+                                </div>
+                            </div>
+                            
+                            <p class="text-gray-600 text-sm mb-4 line-clamp-2">${org.mo_ta || 'Chưa có mô tả'}</p>
+                            
+                            <div class="grid grid-cols-2 gap-3 mb-4 text-center">
+                                <div class="bg-gray-50 rounded-lg p-2">
+                                    <p class="text-lg font-bold text-blue-600">${org.so_chien_dich_dang_chay || 0}</p>
+                                    <p class="text-xs text-gray-500">Chiến dịch</p>
+                                </div>
+                                <div class="bg-gray-50 rounded-lg p-2">
+                                    <p class="text-lg font-bold text-green-600">${formatMoney(org.tong_quyen_gop || 0)}</p>
+                                    <p class="text-xs text-gray-500">Đã quyên góp</p>
+                                </div>
+                            </div>
+
+                            ${org.dia_chi ? `<p class="text-sm text-gray-500 mb-4 truncate">📍 ${org.dia_chi}</p>` : ''}
+
+                            <a href="to-chuc-detail.html?id=${org.to_chuc_id}" 
+                                class="block w-full text-center gradient-primary text-white py-2 rounded-lg font-medium btn-hover">
+                                Xem chi tiết
+                            </a>
+                        </div>
+                    </div>
+                `).join('');
+
+                renderPagination(data.pagination);
+            } catch (error) {
+                console.error('Error:', error);
+                grid.innerHTML = '<div class="col-span-full text-center py-10 text-red-500">Lỗi tải dữ liệu</div>';
+            }
+        }
+
+        function renderPagination(pagination) {
+            const { page, totalPages } = pagination;
+            if (totalPages <= 1) {
+                document.getElementById('pagination').innerHTML = '';
+                return;
+            }
+            let html = '';
+            for (let i = 1; i <= totalPages; i++) {
+                html += `<button onclick="loadOrganizations(${i})" 
+                    class="px-4 py-2 rounded-lg ${i === page ? 'bg-blue-600 text-white' : 'bg-white hover:bg-gray-100'}">${i}</button>`;
+            }
+            document.getElementById('pagination').innerHTML = html;
+        }
+
+        let searchTimeout;
+        document.getElementById('searchInput').addEventListener('input', function() {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => loadOrganizations(1), 500);
+        });
+
+        loadOrganizations();
+    </script>
+</body>
+</html>

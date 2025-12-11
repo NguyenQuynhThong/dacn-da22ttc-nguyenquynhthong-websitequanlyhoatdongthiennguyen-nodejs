@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang cá nhân - Thiện Nguyện</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+
+<body class="bg-gray-100 min-h-screen">
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-2 flex items-center justify-between">
+            <a href="home.html" class="flex items-center gap-2">
+                <div class="w-10 h-10 gradient-heart rounded-full flex items-center justify-center">
+                    <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
+                    </svg>
+                </div>
+            </a>
+            <nav class="hidden md:flex items-center gap-2">
+                <a href="home.html" class="p-3 rounded-lg text-gray-500 hover:bg-gray-100">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+                    </svg>
+                </a>
+                <a href="chien-dich.html" class="p-3 rounded-lg text-gray-500 hover:bg-gray-100">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                    </svg>
+                </a>
+                <a href="to-chuc.html" class="p-3 rounded-lg text-gray-500 hover:bg-gray-100">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                    </svg>
+                </a>
+            </nav>
+            <div class="flex items-center gap-3">
+                <button onclick="logout()" class="px-4 py-2 text-red-600 hover:bg-red-50 rounded-lg text-sm">Đăng xuất</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto px-4 py-6">
+        <!-- Profile Header -->
+        <div class="bg-white rounded-lg shadow overflow-hidden mb-6">
+            <div class="h-32 bg-gradient-to-r from-blue-500 to-purple-600"></div>
+            <div class="px-6 pb-6">
+                <div class="flex flex-col sm:flex-row items-center sm:items-end gap-4 -mt-12">
+                    <div class="relative group">
+                        <div class="w-24 h-24 bg-white rounded-full border-4 border-white shadow-lg flex items-center justify-center text-3xl font-bold text-blue-600 overflow-hidden" id="profileAvatar">
+                            U
+                        </div>
+                        <label class="absolute inset-0 bg-black bg-opacity-50 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 cursor-pointer transition">
+                            <span class="text-white text-sm">📷</span>
+                            <input type="file" id="avatarInput" accept="image/*" class="hidden" onchange="uploadAvatar(this)">
+                        </label>
+                    </div>
+                    <div class="flex-1 text-center sm:text-left">
+                        <h1 class="text-2xl font-bold text-gray-800" id="profileName">Đang tải...</h1>
+                        <p class="text-gray-500" id="profileEmail"></p>
+                    </div>
+                    <button onclick="openEditModal()" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm font-medium">
+                        ✏️ Chỉnh sửa
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+            <div class="bg-white rounded-lg shadow p-4 text-center">
+                <p class="text-2xl font-bold text-green-600" id="statDonations">0</p>
+                <p class="text-sm text-gray-500">Lần quyên góp</p>
+            </div>
+            <div class="bg-white rounded-lg shadow p-4 text-center">
+                <p class="text-2xl font-bold text-blue-600" id="statAmount">0đ</p>
+                <p class="text-sm text-gray-500">Tổng quyên góp</p>
+            </div>
+            <div class="bg-white rounded-lg shadow p-4 text-center">
+                <p class="text-2xl font-bold text-purple-600" id="statParticipations">0</p>
+                <p class="text-sm text-gray-500">Chiến dịch tham gia</p>
+            </div>
+            <div class="bg-white rounded-lg shadow p-4 text-center">
+                <p class="text-2xl font-bold text-red-500" id="statLikes">0</p>
+                <p class="text-sm text-gray-500">Lượt thích</p>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="bg-white rounded-lg shadow">
+            <div class="flex border-b">
+                <button onclick="showTab('info')" class="tab-btn flex-1 py-3 text-center font-medium border-b-2 border-blue-500 text-blue-600" data-tab="info">
+                    Thông tin
+                </button>
+                <button onclick="showTab('donations')" class="tab-btn flex-1 py-3 text-center font-medium text-gray-500 hover:text-gray-700" data-tab="donations">
+                    Quyên góp
+                </button>
+                <button onclick="showTab('participations')" class="tab-btn flex-1 py-3 text-center font-medium text-gray-500 hover:text-gray-700" data-tab="participations">
+                    Tham gia
+                </button>
+                <button onclick="showTab('liked')" class="tab-btn flex-1 py-3 text-center font-medium text-gray-500 hover:text-gray-700" data-tab="liked">
+                    Đã thích
+                </button>
+                <button onclick="showTab('following')" class="tab-btn flex-1 py-3 text-center font-medium text-gray-500 hover:text-gray-700" data-tab="following">
+                    Đang theo dõi
+                </button>
+            </div>
+
+            <!-- Tab Content -->
+            <div id="tabContent" class="p-6">
+                <!-- Info Tab -->
+                <div id="tab-info" class="tab-content">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="text-sm text-gray-500">Họ tên</label>
+                            <p class="font-medium text-gray-800" id="infoName">-</p>
+                        </div>
+                        <div>
+                            <label class="text-sm text-gray-500">Email</label>
+                            <p class="font-medium text-gray-800" id="infoEmail">-</p>
+                        </div>
+                        <div>
+                            <label class="text-sm text-gray-500">Số điện thoại</label>
+                            <p class="font-medium text-gray-800" id="infoPhone">-</p>
+                        </div>
+                        <div>
+                            <label class="text-sm text-gray-500">Ngày sinh</label>
+                            <p class="font-medium text-gray-800" id="infoBirthday">-</p>
+                        </div>
+                        <div>
+                            <label class="text-sm text-gray-500">Giới tính</label>
+                            <p class="font-medium text-gray-800" id="infoGender">-</p>
+                        </div>
+                        <div>
+                            <label class="text-sm text-gray-500">Địa chỉ</label>
+                            <p class="font-medium text-gray-800" id="infoAddress">-</p>
+                        </div>
+                        <div>
+                            <label class="text-sm text-gray-500">Ngày tham gia</label>
+                            <p class="font-medium text-gray-800" id="infoJoinDate">-</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Donations Tab -->
+                <div id="tab-donations" class="tab-content hidden">
+                    <div id="donationsList" class="space-y-3">Đang tải...</div>
+                </div>
+
+                <!-- Participations Tab -->
+                <div id="tab-participations" class="tab-content hidden">
+                    <div id="participationsList" class="space-y-3">Đang tải...</div>
+                </div>
+
+                <!-- Liked Tab -->
+                <div id="tab-liked" class="tab-content hidden">
+                    <div id="likedList" class="space-y-3">Đang tải...</div>
+                </div>
+
+                <!-- Following Tab -->
+                <div id="tab-following" class="tab-content hidden">
+                    <div id="followingList" class="space-y-3">Đang tải...</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+
+    <!-- Edit Modal -->
+    <div id="editModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-md mx-4 p-6 max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-bold text-gray-800">Chỉnh sửa thông tin</h3>
+                <button onclick="closeEditModal()" class="text-gray-500 hover:text-gray-700">✕</button>
+            </div>
+            <form id="editForm">
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Họ tên</label>
+                        <input type="text" id="editName" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Số điện thoại</label>
+                        <input type="tel" id="editPhone" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Ngày sinh</label>
+                        <input type="date" id="editBirthday" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Giới tính</label>
+                        <select id="editGender" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+                            <option value="khac">Khác</option>
+                            <option value="nam">Nam</option>
+                            <option value="nu">Nữ</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Địa chỉ</label>
+                        <textarea id="editAddress" rows="2" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"></textarea>
+                    </div>
+                </div>
+                <button type="submit" class="w-full mt-6 gradient-primary text-white py-3 rounded-lg font-semibold btn-hover">
+                    Lưu thay đổi
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script src="../assets/js/config.js"></script>
+    <script>
+        // Check auth - chỉ kiểm tra user
+        if (!auth.isLoggedInAs('user')) {
+            window.location.href = 'login.html';
+        }
+
+        let profileData = null;
+
+        function logout() { auth.logoutAs('user'); window.location.href = 'login.html'; }
+        function formatMoney(a) { return new Intl.NumberFormat('vi-VN').format(a) + 'đ'; }
+        function formatDate(d) { return d ? new Date(d).toLocaleDateString('vi-VN') : '-'; }
+
+        function getGenderLabel(g) {
+            const labels = { 'nam': 'Nam', 'nu': 'Nữ', 'khac': 'Khác' };
+            return labels[g] || '-';
+        }
+
+        function getStatusBadge(s) {
+            const badges = {
+                'cho_xac_nhan': '<span class="px-2 py-1 bg-yellow-100 text-yellow-700 text-xs rounded-full">Chờ xác nhận</span>',
+                'thanh_cong': '<span class="px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full">Thành công</span>',
+                'cho_duyet': '<span class="px-2 py-1 bg-yellow-100 text-yellow-700 text-xs rounded-full">Chờ duyệt</span>',
+                'duyet': '<span class="px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full">Đã duyệt</span>',
+                'tu_choi': '<span class="px-2 py-1 bg-red-100 text-red-700 text-xs rounded-full">Từ chối</span>',
+                'hoan_thanh': '<span class="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded-full">Hoàn thành</span>'
+            };
+            return badges[s] || s;
+        }
+
+        // Load profile
+        async function loadProfile() {
+            try {
+                const token = auth.getToken('user');
+                const res = await fetch(`${CONFIG.API_URL}/profile`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await res.json();
+
+                if (!data.success) {
+                    alert('Không thể tải thông tin');
+                    return;
+                }
+
+                profileData = data.data;
+                const p = profileData;
+
+                // Header - Avatar
+                const avatarEl = document.getElementById('profileAvatar');
+                if (p.avatar_url) {
+                    avatarEl.innerHTML = `<img src="${CONFIG.API_URL.replace('/api', '')}${p.avatar_url}" class="w-full h-full object-cover rounded-full" onerror="this.parentElement.textContent='${p.ho_ten?.charAt(0).toUpperCase() || 'U'}'">`;
+                } else {
+                    avatarEl.textContent = p.ho_ten?.charAt(0).toUpperCase() || 'U';
+                }
+                document.getElementById('profileName').textContent = p.ho_ten || 'Người dùng';
+                document.getElementById('profileEmail').textContent = p.email;
+
+                // Stats
+                document.getElementById('statDonations').textContent = p.thong_ke.so_lan_quyen_gop;
+                document.getElementById('statAmount').textContent = formatMoney(p.thong_ke.tong_quyen_gop);
+                document.getElementById('statParticipations').textContent = p.thong_ke.so_chien_dich_tham_gia;
+                document.getElementById('statLikes').textContent = p.thong_ke.so_luot_thich;
+
+                // Info tab
+                document.getElementById('infoName').textContent = p.ho_ten || '-';
+                document.getElementById('infoEmail').textContent = p.email || '-';
+                document.getElementById('infoPhone').textContent = p.so_dien_thoai || '-';
+                document.getElementById('infoBirthday').textContent = formatDate(p.ngay_sinh);
+                document.getElementById('infoGender').textContent = getGenderLabel(p.gioi_tinh);
+                document.getElementById('infoAddress').textContent = p.dia_chi || '-';
+                document.getElementById('infoJoinDate').textContent = formatDate(p.ngay_tao);
+
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        // Tab switching
+        function showTab(tabName) {
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('border-blue-500', 'text-blue-600', 'border-b-2');
+                btn.classList.add('text-gray-500');
+            });
+            document.querySelector(`[data-tab="${tabName}"]`).classList.add('border-b-2', 'border-blue-500', 'text-blue-600');
+            document.querySelector(`[data-tab="${tabName}"]`).classList.remove('text-gray-500');
+
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+            document.getElementById(`tab-${tabName}`).classList.remove('hidden');
+
+            if (tabName === 'donations') loadDonations();
+            if (tabName === 'participations') loadParticipations();
+            if (tabName === 'liked') loadLiked();
+            if (tabName === 'following') loadFollowing();
+        }
+
+
+        // Load donations
+        async function loadDonations() {
+            const list = document.getElementById('donationsList');
+            try {
+                const token = auth.getToken('user');
+                const res = await fetch(`${CONFIG.API_URL}/profile/donations`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await res.json();
+
+                if (!data.success || data.data.length === 0) {
+                    list.innerHTML = '<p class="text-gray-500 text-center py-4">Chưa có quyên góp nào</p>';
+                    return;
+                }
+
+                list.innerHTML = data.data.map(d => `
+                    <div class="flex gap-4 p-4 bg-gray-50 rounded-lg">
+                        <img src="${d.hinh_anh_url || 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=100'}" 
+                            class="w-16 h-16 rounded-lg object-cover">
+                        <div class="flex-1">
+                            <a href="chien-dich-detail.html?id=${d.chien_dich_id}" class="font-semibold text-gray-800 hover:text-blue-600">${d.ten_chien_dich}</a>
+                            <p class="text-sm text-gray-500">${d.ten_to_chuc}</p>
+                            <p class="text-sm text-gray-500">${formatDate(d.ngay_gop)}</p>
+                        </div>
+                        <div class="text-right">
+                            <p class="font-bold text-green-600">${formatMoney(d.so_tien)}</p>
+                            ${getStatusBadge(d.trang_thai)}
+                        </div>
+                    </div>
+                `).join('');
+            } catch (e) {
+                list.innerHTML = '<p class="text-red-500">Lỗi tải dữ liệu</p>';
+            }
+        }
+
+        // Load participations
+        async function loadParticipations() {
+            const list = document.getElementById('participationsList');
+            try {
+                const token = auth.getToken('user');
+                const res = await fetch(`${CONFIG.API_URL}/profile/participations`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await res.json();
+
+                if (!data.success || data.data.length === 0) {
+                    list.innerHTML = '<p class="text-gray-500 text-center py-4">Chưa tham gia chiến dịch nào</p>';
+                    return;
+                }
+
+                list.innerHTML = data.data.map(p => `
+                    <div class="flex gap-4 p-4 bg-gray-50 rounded-lg">
+                        <img src="${p.hinh_anh_url || 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=100'}" 
+                            class="w-16 h-16 rounded-lg object-cover">
+                        <div class="flex-1">
+                            <a href="chien-dich-detail.html?id=${p.chien_dich_id}" class="font-semibold text-gray-800 hover:text-blue-600">${p.ten_chien_dich}</a>
+                            <p class="text-sm text-gray-500">${p.ten_to_chuc}</p>
+                            <p class="text-sm text-gray-500">📅 ${formatDate(p.ngay_bat_dau)} - ${formatDate(p.ngay_ket_thuc)}</p>
+                        </div>
+                        <div class="text-right">
+                            ${getStatusBadge(p.trang_thai)}
+                            <p class="text-xs text-gray-400 mt-1">Đăng ký: ${formatDate(p.ngay_dang_ky)}</p>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (e) {
+                list.innerHTML = '<p class="text-red-500">Lỗi tải dữ liệu</p>';
+            }
+        }
+
+        // Load liked campaigns
+        async function loadLiked() {
+            const list = document.getElementById('likedList');
+            try {
+                const token = auth.getToken('user');
+                const res = await fetch(`${CONFIG.API_URL}/profile/liked`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await res.json();
+
+                if (!data.success || data.data.length === 0) {
+                    list.innerHTML = '<p class="text-gray-500 text-center py-4">Chưa thích chiến dịch nào</p>';
+                    return;
+                }
+
+                list.innerHTML = data.data.map(c => `
+                    <div class="flex gap-4 p-4 bg-gray-50 rounded-lg">
+                        <img src="${c.hinh_anh_url || 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=100'}" 
+                            class="w-16 h-16 rounded-lg object-cover">
+                        <div class="flex-1">
+                            <a href="chien-dich-detail.html?id=${c.chien_dich_id}" class="font-semibold text-gray-800 hover:text-blue-600">${c.ten_chien_dich}</a>
+                            <p class="text-sm text-gray-500">${c.ten_to_chuc}</p>
+                            <p class="text-sm text-green-600">${formatMoney(c.so_tien_da_quyen_gop)} / ${formatMoney(c.muc_tieu_tien)}</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-red-500">❤️</span>
+                            <p class="text-xs text-gray-400">${formatDate(c.ngay_thich)}</p>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (e) {
+                list.innerHTML = '<p class="text-red-500">Lỗi tải dữ liệu</p>';
+            }
+        }
+
+        // Load following organizations
+        async function loadFollowing() {
+            const list = document.getElementById('followingList');
+            try {
+                const token = auth.getToken('user');
+                const res = await fetch(`${CONFIG.API_URL}/follow/my-following`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await res.json();
+
+                if (!data.success || data.data.length === 0) {
+                    list.innerHTML = '<p class="text-gray-500 text-center py-4">Chưa theo dõi tổ chức nào</p>';
+                    return;
+                }
+
+                list.innerHTML = data.data.map(org => `
+                    <div class="flex gap-4 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition">
+                        <div class="w-14 h-14 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white text-xl font-bold flex-shrink-0">
+                            ${org.logo_url ? `<img src="${org.logo_url}" class="w-full h-full rounded-full object-cover">` : org.ten_to_chuc.charAt(0)}
+                        </div>
+                        <div class="flex-1">
+                            <a href="to-chuc-detail.html?id=${org.to_chuc_id}" class="font-semibold text-gray-800 hover:text-blue-600">${org.ten_to_chuc}</a>
+                            <p class="text-sm text-gray-500">${org.so_nguoi_theo_doi} người theo dõi · ${org.so_chien_dich} chiến dịch</p>
+                            <p class="text-xs text-gray-400">Theo dõi từ: ${formatDate(org.ngay_theo_doi)}</p>
+                        </div>
+                        <button onclick="unfollowOrg(${org.to_chuc_id}, this)" class="self-center px-3 py-1 text-red-500 hover:bg-red-50 rounded text-sm">
+                            Hủy theo dõi
+                        </button>
+                    </div>
+                `).join('');
+            } catch (e) {
+                list.innerHTML = '<p class="text-red-500">Lỗi tải dữ liệu</p>';
+            }
+        }
+
+        async function unfollowOrg(orgId, btn) {
+            if (!confirm('Bạn có chắc muốn hủy theo dõi?')) return;
+            
+            const token = auth.getToken('user');
+            try {
+                const res = await fetch(`${CONFIG.API_URL}/follow/tochuc/${orgId}`, {
+                    method: 'POST',
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await res.json();
+                if (data.success && !data.followed) {
+                    btn.closest('.flex').remove();
+                    // Check if list is empty
+                    if (document.getElementById('followingList').children.length === 0) {
+                        document.getElementById('followingList').innerHTML = '<p class="text-gray-500 text-center py-4">Chưa theo dõi tổ chức nào</p>';
+                    }
+                }
+            } catch (e) {
+                alert('Lỗi hủy theo dõi');
+            }
+        }
+
+        // Edit modal
+        function openEditModal() {
+            if (!profileData) return;
+            document.getElementById('editName').value = profileData.ho_ten || '';
+            document.getElementById('editPhone').value = profileData.so_dien_thoai || '';
+            document.getElementById('editBirthday').value = profileData.ngay_sinh ? profileData.ngay_sinh.split('T')[0] : '';
+            document.getElementById('editGender').value = profileData.gioi_tinh || 'khac';
+            document.getElementById('editAddress').value = profileData.dia_chi || '';
+            document.getElementById('editModal').classList.remove('hidden');
+        }
+
+        function closeEditModal() {
+            document.getElementById('editModal').classList.add('hidden');
+        }
+
+        document.getElementById('editForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const token = auth.getToken('user');
+
+            try {
+                const res = await fetch(`${CONFIG.API_URL}/profile`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        ho_ten: document.getElementById('editName').value,
+                        so_dien_thoai: document.getElementById('editPhone').value,
+                        ngay_sinh: document.getElementById('editBirthday').value || null,
+                        gioi_tinh: document.getElementById('editGender').value,
+                        dia_chi: document.getElementById('editAddress').value
+                    })
+                });
+                const data = await res.json();
+
+                if (data.success) {
+                    alert('Cập nhật thành công!');
+                    closeEditModal();
+                    loadProfile();
+                } else {
+                    alert(data.message);
+                }
+            } catch (e) {
+                alert('Lỗi cập nhật');
+            }
+        });
+
+        // Upload avatar
+        async function uploadAvatar(input) {
+            if (!input.files || !input.files[0]) return;
+            
+            const file = input.files[0];
+            if (file.size > 5 * 1024 * 1024) {
+                alert('Ảnh không được lớn hơn 5MB');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('avatar', file);
+
+            const token = auth.getToken('user');
+            try {
+                const res = await fetch(`${CONFIG.API_URL}/profile/avatar`, {
+                    method: 'POST',
+                    headers: { 'Authorization': `Bearer ${token}` },
+                    body: formData
+                });
+                const data = await res.json();
+
+                if (data.success) {
+                    alert('Cập nhật avatar thành công!');
+                    loadProfile();
+                    // Cập nhật localStorage với key riêng của user
+                    const user = auth.getUser('user');
+                    if (user) {
+                        user.avatar_url = data.avatar_url;
+                        localStorage.setItem('user_user', JSON.stringify(user));
+                    }
+                } else {
+                    alert(data.message || 'Lỗi upload');
+                }
+            } catch (e) {
+                console.error(e);
+                alert('Lỗi upload avatar');
+            }
+            input.value = '';
+        }
+
+        // Init
+        loadProfile();
+    </script>
+</body>
+</html>

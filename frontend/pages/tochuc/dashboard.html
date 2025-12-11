@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Quản lý Tổ chức</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+
+<body class="bg-gray-100 min-h-screen">
+    <div class="flex">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-white shadow-lg min-h-screen fixed left-0 top-0">
+            <div class="p-4 border-b">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 gradient-heart rounded-full flex items-center justify-center">
+                        <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd"
+                                d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <div>
+                        <p class="font-bold text-gray-800">Thiện Nguyện</p>
+                        <p class="text-xs text-gray-500">Quản lý Tổ chức</p>
+                    </div>
+                </div>
+            </div>
+            <nav class="p-4 space-y-1">
+                <a href="dashboard.html"
+                    class="flex items-center gap-3 px-4 py-3 bg-blue-50 text-blue-600 rounded-lg font-medium">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                    </svg>
+                    Dashboard
+                </a>
+                <a href="chien-dich.html"
+                    class="flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-100 rounded-lg">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                    </svg>
+                    Chiến dịch
+                </a>
+                <a href="tinh-nguyen-vien.html"
+                    class="flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-100 rounded-lg">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    Tình nguyện viên
+                </a>
+                <a href="quyen-gop.html"
+                    class="flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-100 rounded-lg">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    Quyên góp
+                </a>
+                <a href="bao-cao.html"
+                    class="flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-100 rounded-lg">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    Báo cáo
+                </a>
+                <a href="cai-dat.html"
+                    class="flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-100 rounded-lg">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    Cài đặt
+                </a>
+            </nav>
+            <div class="absolute bottom-0 left-0 right-0 p-4 border-t">
+                <button onclick="logout()"
+                    class="flex items-center gap-3 px-4 py-2 text-red-600 hover:bg-red-50 rounded-lg w-full">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                    </svg>
+                    Đăng xuất
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 ml-64 p-6">
+            <!-- Header -->
+            <div class="flex justify-between items-center mb-6">
+                <div>
+                    <h1 class="text-2xl font-bold text-gray-800">Dashboard</h1>
+                    <p class="text-gray-500">Xin chào, <span id="orgName">Tổ chức</span>!</p>
+                </div>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm text-gray-500">Chiến dịch đang chạy</p>
+                            <p class="text-3xl font-bold text-blue-600" id="statActive">0</p>
+                        </div>
+                        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                            <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 10V3L4 14h7v7l9-11h-7z" />
+                            </svg>
+                        </div>
+                    </div>
+                    <p class="text-xs text-gray-400 mt-2"><span id="statPending">0</span> chờ duyệt</p>
+                </div>
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm text-gray-500">Tổng quyên góp</p>
+                            <p class="text-3xl font-bold text-green-600" id="statDonation">0đ</p>
+                        </div>
+                        <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                    </div>
+                    <p class="text-xs text-gray-400 mt-2"><span id="statDonationCount">0</span> lượt quyên góp</p>
+                </div>
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm text-gray-500">Tình nguyện viên</p>
+                            <p class="text-3xl font-bold text-purple-600" id="statVolunteer">0</p>
+                        </div>
+                        <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
+                            <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                        </div>
+                    </div>
+                    <p class="text-xs text-gray-400 mt-2"><span id="statVolunteerPending">0</span> chờ duyệt</p>
+                </div>
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm text-gray-500">Người theo dõi</p>
+                            <p class="text-3xl font-bold text-pink-600" id="statFollower">0</p>
+                        </div>
+                        <div class="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center">
+                            <svg class="w-6 h-6 text-pink-600" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd"
+                                    d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Content Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Chiến dịch đang chạy -->
+                <div class="bg-white rounded-lg shadow">
+                    <div class="p-4 border-b flex justify-between items-center">
+                        <h2 class="font-bold text-gray-800">Chiến dịch đang diễn ra</h2>
+                        <a href="chien-dich.html" class="text-blue-600 text-sm hover:underline">Xem tất cả →</a>
+                    </div>
+                    <div id="activeCampaigns" class="p-4 space-y-3">
+                        <p class="text-gray-500 text-center py-4">Đang tải...</p>
+                    </div>
+                </div>
+
+                <!-- Quyên góp gần đây -->
+                <div class="bg-white rounded-lg shadow">
+                    <div class="p-4 border-b flex justify-between items-center">
+                        <h2 class="font-bold text-gray-800">Quyên góp gần đây</h2>
+                        <a href="quyen-gop.html" class="text-blue-600 text-sm hover:underline">Xem tất cả →</a>
+                    </div>
+                    <div id="recentDonations" class="p-4 space-y-3">
+                        <p class="text-gray-500 text-center py-4">Đang tải...</p>
+                    </div>
+                </div>
+
+                <!-- Tình nguyện viên chờ duyệt -->
+                <div class="bg-white rounded-lg shadow lg:col-span-2">
+                    <div class="p-4 border-b flex justify-between items-center">
+                        <h2 class="font-bold text-gray-800">Tình nguyện viên chờ duyệt</h2>
+                        <a href="tinh-nguyen-vien.html" class="text-blue-600 text-sm hover:underline">Xem tất cả →</a>
+                    </div>
+                    <div id="pendingVolunteers" class="p-4">
+                        <p class="text-gray-500 text-center py-4">Đang tải...</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../../assets/js/config.js"></script>
+    <script>
+        // Check auth - chỉ kiểm tra tổ chức, KHÔNG ảnh hưởng user
+        if (!auth.isLoggedInAs('tochuc')) {
+            window.location.href = '../login-tochuc.html';
+        }
+
+        const user = auth.getUser('tochuc');
+        if (user) {
+            document.getElementById('orgName').textContent = user.ten_to_chuc || 'Tổ chức';
+        }
+
+        function logout() {
+            auth.logoutAs('tochuc'); // Chỉ logout tổ chức, không ảnh hưởng user
+            window.location.href = '../login-tochuc.html';
+        }
+
+        function formatMoney(a) { return new Intl.NumberFormat('vi-VN').format(a) + 'đ'; }
+        function formatDate(d) { return new Date(d).toLocaleDateString('vi-VN'); }
+        function timeAgo(date) {
+            const seconds = Math.floor((new Date() - new Date(date)) / 1000);
+            if (seconds < 60) return 'Vừa xong';
+            if (seconds < 3600) return Math.floor(seconds / 60) + ' phút trước';
+            if (seconds < 86400) return Math.floor(seconds / 3600) + ' giờ trước';
+            return formatDate(date);
+        }
+
+        async function loadDashboard() {
+            const token = auth.getToken('tochuc'); // Dùng token riêng của tổ chức
+            try {
+                const res = await fetch(`${CONFIG.API_URL}/to-chuc/dashboard`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await res.json();
+
+                if (!data.success) {
+                    alert('Không thể tải dữ liệu');
+                    return;
+                }
+
+                const { thong_ke, quyen_gop_gan_day, tinh_nguyen_vien_cho_duyet, chien_dich_dang_chay } = data.data;
+
+                // Stats
+                document.getElementById('statActive').textContent = thong_ke.chien_dich_dang_chay;
+                document.getElementById('statPending').textContent = thong_ke.chien_dich_cho_duyet;
+                document.getElementById('statDonation').textContent = formatMoney(thong_ke.tong_quyen_gop);
+                document.getElementById('statDonationCount').textContent = thong_ke.so_luot_quyen_gop;
+                document.getElementById('statVolunteer').textContent = thong_ke.tong_tinh_nguyen_vien;
+                document.getElementById('statVolunteerPending').textContent = thong_ke.tinh_nguyen_vien_cho_duyet;
+                document.getElementById('statFollower').textContent = thong_ke.so_nguoi_theo_doi;
+
+                // Active campaigns
+                if (chien_dich_dang_chay.length === 0) {
+                    document.getElementById('activeCampaigns').innerHTML = '<p class="text-gray-500 text-center py-4">Chưa có chiến dịch nào</p>';
+                } else {
+                    document.getElementById('activeCampaigns').innerHTML = chien_dich_dang_chay.map(c => {
+                        const progress = c.muc_tieu_tien > 0 ? (c.so_tien_da_quyen_gop / c.muc_tieu_tien * 100).toFixed(1) : 0;
+                        return `
+                            <div class="p-3 bg-gray-50 rounded-lg">
+                                <div class="flex justify-between items-start mb-2">
+                                    <h3 class="font-medium text-gray-800">${c.ten_chien_dich}</h3>
+                                    <span class="text-xs text-gray-500">${c.so_tinh_nguyen_vien} TNV</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2 mb-1">
+                                    <div class="bg-green-500 h-2 rounded-full" style="width: ${Math.min(progress, 100)}%"></div>
+                                </div>
+                                <div class="flex justify-between text-xs text-gray-500">
+                                    <span>${formatMoney(c.so_tien_da_quyen_gop)}</span>
+                                    <span>${progress}%</span>
+                                </div>
+                            </div>
+                        `;
+                    }).join('');
+                }
+
+                // Recent donations
+                if (quyen_gop_gan_day.length === 0) {
+                    document.getElementById('recentDonations').innerHTML = '<p class="text-gray-500 text-center py-4">Chưa có quyên góp nào</p>';
+                } else {
+                    document.getElementById('recentDonations').innerHTML = quyen_gop_gan_day.map(d => `
+                        <div class="flex items-center gap-3 p-2 hover:bg-gray-50 rounded">
+                            <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center text-green-600 font-bold">
+                                ${d.an_danh ? '?' : d.ho_ten.charAt(0)}
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-medium text-gray-800">${d.an_danh ? 'Ẩn danh' : d.ho_ten}</p>
+                                <p class="text-xs text-gray-500">${d.ten_chien_dich}</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-bold text-green-600">${formatMoney(d.so_tien)}</p>
+                                <p class="text-xs text-gray-400">${timeAgo(d.ngay_gop)}</p>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+
+                // Pending volunteers
+                if (tinh_nguyen_vien_cho_duyet.length === 0) {
+                    document.getElementById('pendingVolunteers').innerHTML = '<p class="text-gray-500 text-center py-4">Không có đơn đăng ký nào</p>';
+                } else {
+                    document.getElementById('pendingVolunteers').innerHTML = tinh_nguyen_vien_cho_duyet.map(v => `
+                        <div class="border-b last:border-b-0 p-4 hover:bg-gray-50">
+                            <div class="flex justify-between items-start mb-3">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center text-purple-600 font-bold">
+                                        ${v.ho_ten?.charAt(0).toUpperCase() || 'U'}
+                                    </div>
+                                    <div>
+                                        <p class="font-semibold text-gray-800">${v.ho_ten}</p>
+                                        <p class="text-xs text-gray-500">${v.email} · ${v.so_dien_thoai || 'Chưa có SĐT'}</p>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <span class="px-2 py-1 bg-blue-100 text-blue-700 rounded text-xs">${v.ten_chien_dich}</span>
+                                    <p class="text-xs text-gray-400 mt-1">${formatDate(v.ngay_dang_ky)}</p>
+                                </div>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
+                                <div class="bg-gray-50 p-3 rounded-lg">
+                                    <p class="text-xs text-gray-500 mb-1">📝 Lý do muốn tham gia:</p>
+                                    <p class="text-sm text-gray-700">${v.ly_do_tham_gia || '<span class="text-gray-400 italic">Không có</span>'}</p>
+                                </div>
+                                <div class="bg-gray-50 p-3 rounded-lg">
+                                    <p class="text-xs text-gray-500 mb-1">💪 Kỹ năng:</p>
+                                    <p class="text-sm text-gray-700">${v.ky_nang || '<span class="text-gray-400 italic">Không có</span>'}</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex justify-end gap-2">
+                                <button onclick="rejectVolunteer(${v.tham_gia_id})" class="px-4 py-2 border border-red-500 text-red-500 rounded-lg text-sm hover:bg-red-50">
+                                    Từ chối
+                                </button>
+                                <button onclick="approveVolunteer(${v.tham_gia_id})" class="px-4 py-2 bg-green-500 text-white rounded-lg text-sm hover:bg-green-600">
+                                    ✓ Duyệt
+                                </button>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        async function approveVolunteer(id) {
+            if (!confirm('Duyệt tình nguyện viên này?')) return;
+            await updateVolunteerStatus(id, 'duyet');
+        }
+
+        async function rejectVolunteer(id) {
+            if (!confirm('Từ chối tình nguyện viên này?')) return;
+            await updateVolunteerStatus(id, 'tu_choi');
+        }
+
+        async function updateVolunteerStatus(id, status) {
+            const token = auth.getToken('tochuc'); // Dùng token riêng của tổ chức
+            try {
+                const res = await fetch(`${CONFIG.API_URL}/to-chuc/tinh-nguyen-vien/${id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ trang_thai: status })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    loadDashboard();
+                } else {
+                    alert(data.message);
+                }
+            } catch (e) {
+                alert('Lỗi cập nhật');
+            }
+        }
+
+        loadDashboard();
+    </script>
+</body>
+
+</html>
