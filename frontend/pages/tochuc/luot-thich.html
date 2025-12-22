@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lượt thích - Tổ chức</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="flex">
+        <!-- Sidebar -->
+        <div id="tochuc-sidebar"></div>
+
+        <!-- Main Content -->
+        <main class="flex-1 ml-64 p-6">
+            <div class="mb-6">
+                <h1 class="text-2xl font-bold text-gray-800">Lượt thích</h1>
+                <p class="text-gray-600">Xem ai đã thích các chiến dịch của bạn</p>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6" id="statsCards">
+                <div class="bg-white rounded-lg shadow p-4 text-center">
+                    <p class="text-3xl font-bold text-red-500" id="totalLikes">0</p>
+                    <p class="text-gray-500">Tổng lượt thích</p>
+                </div>
+            </div>
+
+            <!-- Filter -->
+            <div class="bg-white rounded-lg shadow p-4 mb-6">
+                <div class="flex gap-4 items-center">
+                    <label class="text-gray-700 font-medium">Lọc theo chiến dịch:</label>
+                    <select id="filterCampaign" onchange="loadLikes()" class="flex-1 max-w-md px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500">
+                        <option value="">Tất cả chiến dịch</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Campaign Stats -->
+            <div class="bg-white rounded-lg shadow mb-6">
+                <div class="p-4 border-b">
+                    <h2 class="font-semibold text-gray-800">Thống kê theo chiến dịch</h2>
+                </div>
+                <div class="p-4">
+                    <div id="campaignStats" class="space-y-3">
+                        <p class="text-gray-500 text-center py-4">Đang tải...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Likes List -->
+            <div class="bg-white rounded-lg shadow">
+                <div class="p-4 border-b flex justify-between items-center">
+                    <h2 class="font-semibold text-gray-800">Danh sách người đã thích</h2>
+                    <span class="text-sm text-gray-500" id="likeCount">0 người</span>
+                </div>
+                <div id="likesList" class="divide-y">
+                    <p class="text-gray-500 text-center py-8">Đang tải...</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../../assets/js/config.js"></script>
+    <script src="../../assets/js/tochuc-sidebar.js"></script>
+    <script>
+        if (!auth.isLoggedInAs('tochuc')) {
+            window.location.href = '../login-tochuc.html';
+        }
+
+        function logout() {
+            auth.logoutAs('tochuc');
+            window.location.href = '../login-tochuc.html';
+        }
+
+        function timeAgo(date) {
+            const seconds = Math.floor((new Date() - new Date(date)) / 1000);
+            if (seconds < 60) return 'Vừa xong';
+            if (seconds < 3600) return Math.floor(seconds / 60) + ' phút trước';
+            if (seconds < 86400) return Math.floor(seconds / 3600) + ' giờ trước';
+            return Math.floor(seconds / 86400) + ' ngày trước';
+        }
+
+        async function loadLikes() {
+            const token = auth.getToken('tochuc');
+            const campaignId = document.getElementById('filterCampaign').value;
+            
+            try {
+                let url = `${CONFIG.API_URL}/organization/luot-thich`;
+                if (campaignId) url += `?chien_dich_id=${campaignId}`;
+
+                const res = await fetch(url, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await res.json();
+
+                if (data.success) {
+                    renderLikes(data.data);
+                    renderStats(data.stats);
+                    document.getElementById('totalLikes').textContent = data.stats.reduce((sum, s) => sum + s.so_luot_thich, 0);
+                    document.getElementById('likeCount').textContent = `${data.data.length} người`;
+                    
+                    // Populate filter dropdown
+                    const select = document.getElementById('filterCampaign');
+                    if (select.options.length <= 1) {
+                        data.stats.forEach(s => {
+                            select.innerHTML += `<option value="${s.chien_dich_id}">${s.ten_chien_dich} (${s.so_luot_thich})</option>`;
+                        });
+                    }
+                }
+            } catch (e) {
+                console.error('Lỗi:', e);
+            }
+        }
+
+        function renderStats(stats) {
+            const container = document.getElementById('campaignStats');
+            
+            if (stats.length === 0) {
+                container.innerHTML = '<p class="text-gray-500 text-center py-4">Chưa có chiến dịch nào</p>';
+                return;
+            }
+
+            container.innerHTML = stats.map(s => `
+                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100">
+                    <div class="flex-1">
+                        <p class="font-medium text-gray-800">${s.ten_chien_dich}</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-red-500 text-xl">❤️</span>
+                        <span class="font-bold text-gray-800">${s.so_luot_thich}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderLikes(likes) {
+            const container = document.getElementById('likesList');
+            
+            if (likes.length === 0) {
+                container.innerHTML = '<p class="text-gray-500 text-center py-8">Chưa có ai thích chiến dịch của bạn</p>';
+                return;
+            }
+
+            container.innerHTML = likes.map(l => `
+                <div class="flex items-center gap-4 p-4 hover:bg-gray-50">
+                    <div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0">
+                        ${l.ho_ten?.charAt(0).toUpperCase() || 'U'}
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <p class="font-semibold text-gray-800">${l.ho_ten || 'Người dùng'}</p>
+                        <p class="text-sm text-gray-500">${l.email}</p>
+                        <p class="text-xs text-gray-400 mt-1">
+                            ❤️ Đã thích <span class="text-blue-600">${l.ten_chien_dich}</span>
+                        </p>
+                    </div>
+                    <div class="text-right flex-shrink-0">
+                        <p class="text-xs text-gray-400">${timeAgo(l.ngay_thich)}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Init
+        loadLikes();
+    </script>
+</body>
+</html>

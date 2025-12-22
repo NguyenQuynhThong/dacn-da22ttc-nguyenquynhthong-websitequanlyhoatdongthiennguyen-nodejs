@@ -13,6 +13,8 @@ const toChucRoutes = require('./routes/toChucRoutes');
 const socialRoutes = require('./routes/socialRoutes');
 const profileRoutes = require('./routes/profileRoutes');
 const followRoutes = require('./routes/followRoutes');
+const messageRoutes = require('./routes/messageRoutes');
+const notificationRoutes = require('./routes/notificationRoutes');
 
 // Tạo Express app
 const app = express();
@@ -68,6 +70,8 @@ app.use('/api/tochuc', toChucRoutes);
 app.use('/api/social', socialRoutes);
 app.use('/api/profile', profileRoutes);
 app.use('/api/follow', followRoutes);
+app.use('/api/messages', messageRoutes);
+app.use('/api/notifications', notificationRoutes);
 
 // ============================================
 // ERROR HANDLING

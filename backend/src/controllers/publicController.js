@@ -6,15 +6,15 @@ const getStatistics = async (req, res) => {
     try {
         // Đếm tổng số chiến dịch
         const [campaigns] = await pool.query('SELECT COUNT(*) as total FROM ChienDich');
-        
+
         // Đếm tổng số tổ chức
         const [organizations] = await pool.query('SELECT COUNT(*) as total FROM ToChuc');
-        
+
         // Đếm tổng số tình nguyện viên
         const [volunteers] = await pool.query(
             "SELECT COUNT(*) as total FROM NguoiDung WHERE vai_tro = 'tinh_nguyen_vien'"
         );
-        
+
         // Tính tổng quyên góp
         const [donations] = await pool.query('SELECT SUM(so_tien) as total FROM QuyenGop');
 
@@ -42,7 +42,7 @@ const getStatistics = async (req, res) => {
 const getCampaigns = async (req, res) => {
     try {
         const { limit = 6, trang_thai, to_chuc_id } = req.query;
-        
+
         let query = `
             SELECT 
                 cd.chien_dich_id,
@@ -62,24 +62,24 @@ const getCampaigns = async (req, res) => {
             LEFT JOIN QuyenGop qg ON cd.chien_dich_id = qg.chien_dich_id
             LEFT JOIN ThamGia tg ON cd.chien_dich_id = tg.chien_dich_id AND tg.trang_thai = 'duyet'
         `;
-        
+
         const params = [];
         const conditions = [];
-        
+
         if (trang_thai) {
             conditions.push('cd.trang_thai = ?');
             params.push(trang_thai);
         }
-        
+
         if (to_chuc_id) {
             conditions.push('cd.to_chuc_id = ?');
             params.push(to_chuc_id);
         }
-        
+
         if (conditions.length > 0) {
             query += ' WHERE ' + conditions.join(' AND ');
         }
-        
+
         query += ' GROUP BY cd.chien_dich_id, cd.ten_chien_dich, cd.mo_ta, cd.ngay_bat_dau, cd.ngay_ket_thuc, cd.muc_tieu_tien, cd.trang_thai, cd.ngay_tao, tc.ten_to_chuc, tc.to_chuc_id';
         query += ' ORDER BY cd.ngay_tao DESC';
         query += ' LIMIT ?';
@@ -106,7 +106,7 @@ const getCampaigns = async (req, res) => {
 const getOrganizations = async (req, res) => {
     try {
         const { limit = 10 } = req.query;
-        
+
         const query = `
             SELECT 
                 tc.to_chuc_id,
@@ -147,7 +147,7 @@ const getOrganizations = async (req, res) => {
 const getCampaignDetail = async (req, res) => {
     try {
         const { id } = req.params;
-        
+
         const query = `
             SELECT 
                 cd.*,
@@ -194,27 +194,27 @@ const getCampaignDetail = async (req, res) => {
 const getOrganizationDetail = async (req, res) => {
     try {
         const { id } = req.params;
-        
+
         const query = `
             SELECT 
                 tc.to_chuc_id,
                 tc.ten_to_chuc as ho_ten,
                 tc.mo_ta,
                 tc.dia_chi,
-                tc.dien_thoai as so_dien_thoai,
+                tc.so_dien_thoai,
+                tc.email,
+                tc.logo,
+                tc.website,
                 tc.ngay_tao,
-                nd.email,
-                nd.ho_ten as dai_dien_name,
                 COUNT(DISTINCT cd.chien_dich_id) as so_chien_dich,
                 COUNT(DISTINCT tg.user_id) as so_tinh_nguyen_vien,
                 COALESCE(SUM(qg.so_tien), 0) as tong_quyen_gop
             FROM ToChuc tc
-            LEFT JOIN NguoiDung nd ON tc.dai_dien_id = nd.user_id
             LEFT JOIN ChienDich cd ON tc.to_chuc_id = cd.to_chuc_id
             LEFT JOIN ThamGia tg ON cd.chien_dich_id = tg.chien_dich_id AND tg.trang_thai = 'duyet'
             LEFT JOIN QuyenGop qg ON cd.chien_dich_id = qg.chien_dich_id
             WHERE tc.to_chuc_id = ?
-            GROUP BY tc.to_chuc_id
+            GROUP BY tc.to_chuc_id, tc.ten_to_chuc, tc.mo_ta, tc.dia_chi, tc.so_dien_thoai, tc.email, tc.logo, tc.website, tc.ngay_tao
         `;
 
         const [organizations] = await pool.query(query, [id]);

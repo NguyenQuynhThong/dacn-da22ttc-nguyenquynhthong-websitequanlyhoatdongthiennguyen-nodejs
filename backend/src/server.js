@@ -1,9 +1,20 @@
 // Entry point - Khởi động server
+const http = require('http');
 const app = require('./app');
 const { testConnection } = require('./config/database');
+const { initSocket } = require('./config/socket');
 require('dotenv').config();
 
 const PORT = process.env.PORT || 5000;
+
+// Tạo HTTP server
+const server = http.createServer(app);
+
+// Khởi tạo Socket.IO
+const io = initSocket(server);
+
+// Export io để dùng trong controllers
+module.exports = { io };
 
 // Hàm khởi động server
 const startServer = async () => {
@@ -18,9 +29,10 @@ const startServer = async () => {
         }
 
         // Khởi động server
-        app.listen(PORT, () => {
+        server.listen(PORT, () => {
             console.log('='.repeat(50));
             console.log(`🚀 Server đang chạy tại http://localhost:${PORT}`);
+            console.log(`🔌 Socket.IO đã sẵn sàng`);
             console.log(`📝 Môi trường: ${process.env.NODE_ENV || 'development'}`);
             console.log(`🗄️  Database: ${process.env.DB_NAME}`);
             console.log('='.repeat(50));

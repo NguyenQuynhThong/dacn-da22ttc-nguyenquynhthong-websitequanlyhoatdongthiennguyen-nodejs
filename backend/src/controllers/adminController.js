@@ -1,5 +1,6 @@
 // Controller xử lý các endpoint admin
 const { pool } = require('../config/database');
+const { notifyNewCampaign } = require('./notificationController');
 
 // Lấy thống kê tổng quan cho admin
 const getAdminStatistics = async (req, res) => {
@@ -101,10 +102,30 @@ const approveCampaign = async (req, res) => {
         const { campaignId } = req.params;
         const adminId = req.user.admin_id;
 
+        // Lấy thông tin chiến dịch và tổ chức
+        const [campaign] = await pool.query(
+            `SELECT cd.ten_chien_dich, cd.to_chuc_id, tc.ten_to_chuc 
+             FROM ChienDich cd 
+             JOIN ToChuc tc ON cd.to_chuc_id = tc.to_chuc_id 
+             WHERE cd.chien_dich_id = ?`,
+            [campaignId]
+        );
+
         await pool.query(
             "UPDATE ChienDich SET trang_thai = 'dang_dien_ra', ngay_duyet = NOW(), duyet_boi_admin_id = ? WHERE chien_dich_id = ?",
             [adminId, campaignId]
         );
+
+        // Gửi thông báo cho followers của tổ chức
+        if (campaign.length > 0) {
+            await notifyNewCampaign(
+                campaign[0].to_chuc_id,
+                campaignId,
+                campaign[0].ten_chien_dich,
+                campaign[0].ten_to_chuc
+            );
+        }
+
         res.json({ success: true, message: 'Duyệt chiến dịch thành công' });
     } catch (error) {
         console.error('Lỗi duyệt chiến dịch:', error);

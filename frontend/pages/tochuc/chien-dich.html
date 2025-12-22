@@ -12,68 +12,7 @@
 <body class="bg-gray-100 min-h-screen">
     <div class="flex">
         <!-- Sidebar -->
-        <aside class="w-64 bg-white shadow-lg min-h-screen fixed left-0 top-0">
-            <div class="p-4 border-b">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 gradient-heart rounded-full flex items-center justify-center">
-                        <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
-                        </svg>
-                    </div>
-                    <div>
-                        <p class="font-bold text-gray-800">Thiện Nguyện</p>
-                        <p class="text-xs text-gray-500">Quản lý Tổ chức</p>
-                    </div>
-                </div>
-            </div>
-            <nav class="p-4 space-y-1">
-                <a href="dashboard.html" class="flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-100 rounded-lg">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
-                    </svg>
-                    Dashboard
-                </a>
-                <a href="chien-dich.html" class="flex items-center gap-3 px-4 py-3 bg-blue-50 text-blue-600 rounded-lg font-medium">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                    </svg>
-                    Chiến dịch
-                </a>
-                <a href="tinh-nguyen-vien.html" class="flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-100 rounded-lg">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                    Tình nguyện viên
-                </a>
-                <a href="quyen-gop.html" class="flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-100 rounded-lg">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    Quyên góp
-                </a>
-                <a href="bao-cao.html" class="flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-100 rounded-lg">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                    </svg>
-                    Báo cáo
-                </a>
-                <a href="cai-dat.html" class="flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-100 rounded-lg">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                    Cài đặt
-                </a>
-            </nav>
-            <div class="absolute bottom-0 left-0 right-0 p-4 border-t">
-                <button onclick="logout()" class="flex items-center gap-3 px-4 py-2 text-red-600 hover:bg-red-50 rounded-lg w-full">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                    </svg>
-                    Đăng xuất
-                </button>
-            </div>
-        </aside>
+        <div id="tochuc-sidebar"></div>
 
         <!-- Main Content -->
         <main class="flex-1 ml-64 p-6">
@@ -83,7 +22,8 @@
                     <h1 class="text-2xl font-bold text-gray-800">Quản lý Chiến dịch</h1>
                     <p class="text-gray-500">Tạo và quản lý các chiến dịch thiện nguyện</p>
                 </div>
-                <button onclick="openCreateModal()" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center gap-2">
+                <button onclick="openCreateModal()"
+                    class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center gap-2">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                     </svg>
@@ -94,16 +34,29 @@
             <!-- Filter Tabs -->
             <div class="bg-white rounded-lg shadow mb-6">
                 <div class="flex border-b">
-                    <button onclick="filterCampaigns('all')" class="filter-tab px-6 py-3 text-sm font-medium border-b-2 border-blue-500 text-blue-600" data-filter="all">
+                    <button onclick="filterCampaigns('all')"
+                        class="filter-tab px-6 py-3 text-sm font-medium border-b-2 border-blue-500 text-blue-600"
+                        data-filter="all">
                         Tất cả
                     </button>
-                    <button onclick="filterCampaigns('dang_dien_ra')" class="filter-tab px-6 py-3 text-sm font-medium text-gray-500 hover:text-gray-700" data-filter="dang_dien_ra">
+                    <button onclick="filterCampaigns('dang_dien_ra')"
+                        class="filter-tab px-6 py-3 text-sm font-medium text-gray-500 hover:text-gray-700"
+                        data-filter="dang_dien_ra">
                         Đang diễn ra
                     </button>
-                    <button onclick="filterCampaigns('cho_duyet')" class="filter-tab px-6 py-3 text-sm font-medium text-gray-500 hover:text-gray-700" data-filter="cho_duyet">
+                    <button onclick="filterCampaigns('tam_dung')"
+                        class="filter-tab px-6 py-3 text-sm font-medium text-gray-500 hover:text-gray-700"
+                        data-filter="tam_dung">
+                        Tạm dừng
+                    </button>
+                    <button onclick="filterCampaigns('cho_duyet')"
+                        class="filter-tab px-6 py-3 text-sm font-medium text-gray-500 hover:text-gray-700"
+                        data-filter="cho_duyet">
                         Chờ duyệt
                     </button>
-                    <button onclick="filterCampaigns('da_ket_thuc')" class="filter-tab px-6 py-3 text-sm font-medium text-gray-500 hover:text-gray-700" data-filter="da_ket_thuc">
+                    <button onclick="filterCampaigns('da_ket_thuc')"
+                        class="filter-tab px-6 py-3 text-sm font-medium text-gray-500 hover:text-gray-700"
+                        data-filter="da_ket_thuc">
                         Đã kết thúc
                     </button>
                 </div>
@@ -120,7 +73,8 @@
 
 
     <!-- Modal Tạo/Sửa Chiến dịch -->
-    <div id="campaignModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center overflow-y-auto">
+    <div id="campaignModal"
+        class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center overflow-y-auto">
         <div class="bg-white rounded-lg shadow-xl w-full max-w-2xl mx-4 my-8">
             <div class="flex justify-between items-center p-6 border-b">
                 <h3 class="text-xl font-bold text-gray-800" id="modalTitle">Tạo chiến dịch mới</h3>
@@ -128,7 +82,7 @@
             </div>
             <form id="campaignForm" class="p-6 space-y-4 max-h-[70vh] overflow-y-auto">
                 <input type="hidden" id="campaignId">
-                
+
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Tên chiến dịch *</label>
                     <input type="text" id="tenChienDich" required
@@ -193,7 +147,8 @@
                 </div>
 
                 <div class="flex gap-3 pt-4 border-t">
-                    <button type="button" onclick="closeModal()" class="flex-1 px-4 py-2 border rounded-lg hover:bg-gray-50">
+                    <button type="button" onclick="closeModal()"
+                        class="flex-1 px-4 py-2 border rounded-lg hover:bg-gray-50">
                         Hủy
                     </button>
                     <button type="submit" class="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
@@ -205,7 +160,8 @@
     </div>
 
     <!-- Modal Xem chi tiết -->
-    <div id="detailModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center overflow-y-auto">
+    <div id="detailModal"
+        class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center overflow-y-auto">
         <div class="bg-white rounded-lg shadow-xl w-full max-w-3xl mx-4 my-8">
             <div class="flex justify-between items-center p-6 border-b">
                 <h3 class="text-xl font-bold text-gray-800">Chi tiết chiến dịch</h3>
@@ -217,7 +173,43 @@
         </div>
     </div>
 
+    <!-- Modal Thay đổi trạng thái -->
+    <div id="statusModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-md mx-4">
+            <div class="flex justify-between items-center p-6 border-b">
+                <h3 class="text-xl font-bold text-gray-800" id="statusModalTitle">Thay đổi trạng thái</h3>
+                <button onclick="closeStatusModal()" class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
+            </div>
+            <div class="p-6">
+                <div class="mb-4">
+                    <p class="text-gray-600 mb-2">Chiến dịch:</p>
+                    <p class="font-semibold text-gray-800" id="statusModalCampaignName"></p>
+                </div>
+                <div class="mb-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
+                    <p class="text-sm text-yellow-700" id="statusModalDescription"></p>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Lý do (không bắt buộc)</label>
+                    <textarea id="statusReason" rows="3"
+                        class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+                        placeholder="Nhập lý do thay đổi trạng thái..."></textarea>
+                </div>
+                <div class="flex gap-3">
+                    <button onclick="closeStatusModal()" class="flex-1 px-4 py-2 border rounded-lg hover:bg-gray-50">
+                        Hủy
+                    </button>
+                    <button onclick="confirmStatusChange()" id="statusConfirmBtn"
+                        class="flex-1 px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700">
+                        Xác nhận
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="../../assets/js/config.js"></script>
+    <script src="../../assets/js/tochuc-sidebar.js"></script>
+    <script src="../../assets/js/unread-messages.js"></script>
     <script>
         // Check auth
         if (!auth.isLoggedInAs('tochuc')) {
@@ -240,19 +232,71 @@
                 'cho_duyet': '<span class="px-2 py-1 bg-yellow-100 text-yellow-700 rounded-full text-xs">Chờ duyệt</span>',
                 'dang_dien_ra': '<span class="px-2 py-1 bg-green-100 text-green-700 rounded-full text-xs">Đang diễn ra</span>',
                 'da_ket_thuc': '<span class="px-2 py-1 bg-gray-100 text-gray-700 rounded-full text-xs">Đã kết thúc</span>',
+                'ket_thuc': '<span class="px-2 py-1 bg-gray-100 text-gray-700 rounded-full text-xs">Đã kết thúc</span>',
                 'tu_choi': '<span class="px-2 py-1 bg-red-100 text-red-700 rounded-full text-xs">Bị từ chối</span>',
                 'tam_dung': '<span class="px-2 py-1 bg-orange-100 text-orange-700 rounded-full text-xs">Tạm dừng</span>'
             };
             return badges[status] || status;
         }
 
+        // Hiển thị nút hành động trạng thái dựa vào trạng thái hiện tại
+        function getStatusActions(campaign) {
+            const status = campaign.trang_thai;
+            let actions = '';
+
+            if (status === 'dang_dien_ra') {
+                actions = `
+                    <button onclick="openStatusModal(${campaign.chien_dich_id}, 'tam_dung')" 
+                        class="p-2 text-orange-500 hover:bg-orange-50 rounded" title="Tạm dừng">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </button>
+                    <button onclick="openStatusModal(${campaign.chien_dich_id}, 'ket_thuc')" 
+                        class="p-2 text-red-500 hover:bg-red-50 rounded" title="Kết thúc sớm">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 10a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z" />
+                        </svg>
+                    </button>
+                `;
+            } else if (status === 'tam_dung') {
+                actions = `
+                    <button onclick="resumeCampaign(${campaign.chien_dich_id})" 
+                        class="p-2 text-green-500 hover:bg-green-50 rounded" title="Tiếp tục chiến dịch">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </button>
+                    <button onclick="openStatusModal(${campaign.chien_dich_id}, 'ket_thuc')" 
+                        class="p-2 text-red-500 hover:bg-red-50 rounded" title="Kết thúc sớm">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 10a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z" />
+                        </svg>
+                    </button>
+                `;
+            } else if (status === 'ket_thuc' || status === 'da_ket_thuc') {
+                actions = `
+                    <button onclick="reopenCampaign(${campaign.chien_dich_id})" 
+                        class="p-2 text-blue-500 hover:bg-blue-50 rounded" title="Mở lại chiến dịch">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                        </svg>
+                    </button>
+                `;
+            }
+            return actions;
+        }
+
         // Load campaigns
         async function loadCampaigns() {
             const token = auth.getToken('tochuc');
             console.log('Loading campaigns with token:', token ? 'có token' : 'không có token');
-            
+
             if (!token) {
-                document.getElementById('campaignList').innerHTML = 
+                document.getElementById('campaignList').innerHTML =
                     '<div class="bg-white rounded-lg shadow p-6 text-center text-red-500">Chưa đăng nhập. Vui lòng đăng nhập lại.</div>';
                 return;
             }
@@ -268,12 +312,12 @@
                     allCampaigns = data.data;
                     renderCampaigns();
                 } else {
-                    document.getElementById('campaignList').innerHTML = 
+                    document.getElementById('campaignList').innerHTML =
                         `<div class="bg-white rounded-lg shadow p-6 text-center text-red-500">Lỗi: ${data.message}</div>`;
                 }
             } catch (error) {
                 console.error('Error:', error);
-                document.getElementById('campaignList').innerHTML = 
+                document.getElementById('campaignList').innerHTML =
                     '<div class="bg-white rounded-lg shadow p-6 text-center text-red-500">Lỗi kết nối server</div>';
             }
         }
@@ -296,18 +340,23 @@
         function renderCampaigns() {
             let filtered = allCampaigns;
             if (currentFilter !== 'all') {
-                filtered = allCampaigns.filter(c => c.trang_thai === currentFilter);
+                // Hỗ trợ cả 'ket_thuc' và 'da_ket_thuc' cho filter đã kết thúc
+                if (currentFilter === 'da_ket_thuc') {
+                    filtered = allCampaigns.filter(c => c.trang_thai === 'da_ket_thuc' || c.trang_thai === 'ket_thuc');
+                } else {
+                    filtered = allCampaigns.filter(c => c.trang_thai === currentFilter);
+                }
             }
 
             if (filtered.length === 0) {
-                document.getElementById('campaignList').innerHTML = 
+                document.getElementById('campaignList').innerHTML =
                     '<div class="bg-white rounded-lg shadow p-6 text-center text-gray-500">Không có chiến dịch nào</div>';
                 return;
             }
 
             document.getElementById('campaignList').innerHTML = filtered.map(c => {
                 const progress = c.muc_tieu_tien > 0 ? (c.so_tien_da_quyen_gop / c.muc_tieu_tien * 100).toFixed(1) : 0;
-                const tnvProgress = c.muc_tieu_tinh_nguyen_vien > 0 ? 
+                const tnvProgress = c.muc_tieu_tinh_nguyen_vien > 0 ?
                     (c.so_tinh_nguyen_vien_hien_tai / c.muc_tieu_tinh_nguyen_vien * 100).toFixed(1) : 0;
 
                 return `
@@ -320,7 +369,7 @@
                                 </div>
                                 <p class="text-gray-600 text-sm line-clamp-2">${c.mo_ta || ''}</p>
                             </div>
-                            <div class="flex gap-2 ml-4">
+                            <div class="flex gap-1 ml-4">
                                 <button onclick="viewDetail(${c.chien_dich_id})" class="p-2 text-gray-500 hover:bg-gray-100 rounded" title="Xem chi tiết">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -332,6 +381,7 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                     </svg>
                                 </button>
+                                ${getStatusActions(c)}
                             </div>
                         </div>
 
@@ -418,7 +468,7 @@
         }
 
         // Form submit
-        document.getElementById('campaignForm').addEventListener('submit', async function(e) {
+        document.getElementById('campaignForm').addEventListener('submit', async function (e) {
             e.preventDefault();
             const token = auth.getToken('tochuc');
             const campaignId = document.getElementById('campaignId').value;
@@ -437,10 +487,10 @@
             };
 
             try {
-                const url = isEdit 
+                const url = isEdit
                     ? `${CONFIG.API_URL}/organization/chien-dich/${campaignId}`
                     : `${CONFIG.API_URL}/organization/chien-dich`;
-                
+
                 const res = await fetch(url, {
                     method: isEdit ? 'PUT' : 'POST',
                     headers: {
@@ -539,8 +589,141 @@
             document.getElementById('detailModal').classList.add('hidden');
         }
 
+        // === QUẢN LÝ TRẠNG THÁI CHIẾN DỊCH ===
+        let currentStatusCampaignId = null;
+        let currentNewStatus = null;
+
+        function openStatusModal(campaignId, newStatus) {
+            currentStatusCampaignId = campaignId;
+            currentNewStatus = newStatus;
+
+            const campaign = allCampaigns.find(c => c.chien_dich_id === campaignId);
+            if (!campaign) return;
+
+            const statusLabels = {
+                'tam_dung': 'Tạm dừng chiến dịch',
+                'ket_thuc': 'Kết thúc sớm chiến dịch',
+                'da_ket_thuc': 'Kết thúc sớm chiến dịch'
+            };
+
+            const statusDescriptions = {
+                'tam_dung': 'Chiến dịch sẽ tạm ngừng hoạt động. Bạn có thể tiếp tục sau.',
+                'ket_thuc': 'Chiến dịch sẽ kết thúc và không thể tiếp tục. Hành động này không thể hoàn tác.',
+                'da_ket_thuc': 'Chiến dịch sẽ kết thúc và không thể tiếp tục. Hành động này không thể hoàn tác.'
+            };
+
+            document.getElementById('statusModalTitle').textContent = statusLabels[newStatus];
+            document.getElementById('statusModalCampaignName').textContent = campaign.ten_chien_dich;
+            document.getElementById('statusModalDescription').textContent = statusDescriptions[newStatus];
+            document.getElementById('statusReason').value = '';
+
+            // Đổi màu nút xác nhận
+            const confirmBtn = document.getElementById('statusConfirmBtn');
+            if (newStatus === 'ket_thuc' || newStatus === 'da_ket_thuc') {
+                confirmBtn.className = 'flex-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700';
+                confirmBtn.textContent = 'Kết thúc chiến dịch';
+            } else {
+                confirmBtn.className = 'flex-1 px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700';
+                confirmBtn.textContent = 'Tạm dừng chiến dịch';
+            }
+
+            document.getElementById('statusModal').classList.remove('hidden');
+        }
+
+        function closeStatusModal() {
+            document.getElementById('statusModal').classList.add('hidden');
+            currentStatusCampaignId = null;
+            currentNewStatus = null;
+        }
+
+        async function confirmStatusChange() {
+            if (!currentStatusCampaignId || !currentNewStatus) return;
+
+            const token = auth.getToken('tochuc');
+            const lyDo = document.getElementById('statusReason').value.trim();
+
+            try {
+                const res = await fetch(`${CONFIG.API_URL}/organization/chien-dich/${currentStatusCampaignId}/trang-thai`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        trang_thai: currentNewStatus,
+                        ly_do: lyDo
+                    })
+                });
+
+                const data = await res.json();
+                if (data.success) {
+                    alert(data.message);
+                    closeStatusModal();
+                    loadCampaigns();
+                } else {
+                    alert(data.message || 'Có lỗi xảy ra');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Lỗi kết nối server');
+            }
+        }
+
+        async function resumeCampaign(campaignId) {
+            if (!confirm('Bạn có chắc muốn tiếp tục chiến dịch này?')) return;
+
+            const token = auth.getToken('tochuc');
+
+            try {
+                const res = await fetch(`${CONFIG.API_URL}/organization/chien-dich/${campaignId}/tiep-tuc`, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                const data = await res.json();
+                if (data.success) {
+                    alert(data.message);
+                    loadCampaigns();
+                } else {
+                    alert(data.message || 'Có lỗi xảy ra');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Lỗi kết nối server');
+            }
+        }
+
+        async function reopenCampaign(campaignId) {
+            if (!confirm('Bạn có chắc muốn mở lại chiến dịch này?\nChiến dịch sẽ chuyển về trạng thái "Chờ duyệt" và cần Admin phê duyệt lại.')) return;
+
+            const token = auth.getToken('tochuc');
+
+            try {
+                const res = await fetch(`${CONFIG.API_URL}/organization/chien-dich/${campaignId}/mo-lai`, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                const data = await res.json();
+                if (data.success) {
+                    alert(data.message);
+                    loadCampaigns();
+                } else {
+                    alert(data.message || 'Có lỗi xảy ra');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Lỗi kết nối server');
+            }
+        }
+
         // Init
         loadCampaigns();
     </script>
 </body>
+
 </html>

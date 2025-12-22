@@ -15,5 +15,6 @@ router.post('/avatar', uploadAvatar.single('avatar'), profileController.uploadAv
 router.get('/donations', profileController.getDonationHistory);
 router.get('/participations', profileController.getParticipationHistory);
 router.get('/liked', profileController.getLikedCampaigns);
+router.get('/comments', profileController.getMyComments);
 
 module.exports = router;

@@ -198,6 +198,29 @@ const uploadAvatar = async (req, res) => {
     }
 };
 
+// Lấy danh sách bình luận của user
+const getMyComments = async (req, res) => {
+    try {
+        const userId = req.user.user_id;
+
+        const [comments] = await pool.query(
+            `SELECT bl.*, cd.ten_chien_dich, cd.chien_dich_id, cd.hinh_anh_url, tc.ten_to_chuc
+             FROM BinhLuan bl
+             JOIN ChienDich cd ON bl.chien_dich_id = cd.chien_dich_id
+             JOIN ToChuc tc ON cd.to_chuc_id = tc.to_chuc_id
+             WHERE bl.user_id = ?
+             ORDER BY bl.ngay_binh_luan DESC
+             LIMIT 50`,
+            [userId]
+        );
+
+        res.json({ success: true, data: comments });
+    } catch (error) {
+        console.error('Lỗi lấy bình luận:', error);
+        res.status(500).json({ success: false, message: 'Lỗi server' });
+    }
+};
+
 module.exports = {
     getProfile,
     updateProfile,
@@ -205,5 +228,6 @@ module.exports = {
     getDonationHistory,
     getParticipationHistory,
     getLikedCampaigns,
-    uploadAvatar
+    uploadAvatar,
+    getMyComments
 };

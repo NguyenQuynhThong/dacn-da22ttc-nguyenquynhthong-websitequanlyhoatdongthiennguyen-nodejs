@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Báo cáo - Tổ chức</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+
+<body class="bg-gray-100 min-h-screen">
+    <div class="flex">
+        <!-- Sidebar -->
+        <div id="tochuc-sidebar"></div>
+
+        <!-- Main Content -->
+        <main class="flex-1 ml-64 p-6">
+            <div class="flex justify-between items-center mb-6">
+                <div>
+                    <h1 class="text-2xl font-bold text-gray-800">Báo cáo</h1>
+                    <p class="text-gray-500">Quản lý báo cáo chiến dịch</p>
+                </div>
+                <button onclick="openCreateModal()" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                    </svg>
+                    Tạo báo cáo
+                </button>
+            </div>
+
+            <!-- Stats -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+                <div class="bg-white rounded-lg shadow p-4">
+                    <p class="text-sm text-gray-500">Tổng báo cáo</p>
+                    <p class="text-2xl font-bold text-blue-600" id="statTotal">0</p>
+                </div>
+                <div class="bg-white rounded-lg shadow p-4">
+                    <p class="text-sm text-gray-500">Tiến độ</p>
+                    <p class="text-2xl font-bold text-green-600" id="statProgress">0</p>
+                </div>
+                <div class="bg-white rounded-lg shadow p-4">
+                    <p class="text-sm text-gray-500">Tài chính</p>
+                    <p class="text-2xl font-bold text-yellow-600" id="statFinance">0</p>
+                </div>
+                <div class="bg-white rounded-lg shadow p-4">
+                    <p class="text-sm text-gray-500">Tổng kết</p>
+                    <p class="text-2xl font-bold text-purple-600" id="statSummary">0</p>
+                </div>
+            </div>
+
+            <!-- Report List -->
+            <div class="bg-white rounded-lg shadow">
+                <div class="p-4 border-b flex flex-wrap gap-3 justify-between items-center">
+                    <h2 class="font-bold text-gray-800">Danh sách báo cáo</h2>
+                    <div class="flex flex-wrap gap-2 items-center">
+                        <input type="text" id="searchInput" onkeyup="renderReports()" placeholder="Tìm kiếm..." class="px-3 py-1 border rounded text-sm w-40">
+                        <select id="filterCampaign" onchange="renderReports()" class="px-3 py-1 border rounded text-sm">
+                            <option value="">Tất cả chiến dịch</option>
+                        </select>
+                        <select id="filterType" onchange="renderReports()" class="px-3 py-1 border rounded text-sm">
+                            <option value="">Tất cả loại</option>
+                            <option value="tien_do">Tiến độ</option>
+                            <option value="tai_chinh">Tài chính</option>
+                            <option value="tong_ket">Tổng kết</option>
+                        </select>
+                        <button onclick="exportToCSV()" class="px-3 py-1 bg-green-600 text-white rounded text-sm hover:bg-green-700">Xuất Excel</button>
+                    </div>
+                </div>
+                <div id="reportList" class="divide-y">
+                    <div class="p-6 text-center text-gray-500">Đang tải...</div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal Tạo báo cáo -->
+    <div id="createModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-lg mx-4">
+            <div class="flex justify-between items-center p-4 border-b">
+                <h3 class="font-bold text-gray-800">Tạo báo cáo mới</h3>
+                <button onclick="closeCreateModal()" class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
+            </div>
+            <form id="reportForm" class="p-4 space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Chiến dịch *</label>
+                    <select id="campaignSelect" required class="w-full px-3 py-2 border rounded-lg">
+                        <option value="">Chọn chiến dịch</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Loại báo cáo *</label>
+                    <select id="reportType" required onchange="toggleFinanceFields()" class="w-full px-3 py-2 border rounded-lg">
+                        <option value="tien_do">Báo cáo tiến độ</option>
+                        <option value="tai_chinh">Báo cáo tài chính</option>
+                        <option value="tong_ket">Báo cáo tổng kết</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Tiêu đề *</label>
+                    <input type="text" id="reportTitle" required class="w-full px-3 py-2 border rounded-lg" placeholder="VD: Báo cáo tuần 1">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Nội dung *</label>
+                    <textarea id="reportContent" required rows="4" class="w-full px-3 py-2 border rounded-lg" placeholder="Nội dung chi tiết báo cáo..."></textarea>
+                </div>
+                <div id="financeFields" class="hidden grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Tổng thu (VNĐ)</label>
+                        <input type="number" id="totalIncome" class="w-full px-3 py-2 border rounded-lg" placeholder="0">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Tổng chi (VNĐ)</label>
+                        <input type="number" id="totalExpense" class="w-full px-3 py-2 border rounded-lg" placeholder="0">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Hình ảnh minh chứng</label>
+                    <input type="file" id="reportImage" accept="image/*" class="w-full px-3 py-2 border rounded-lg text-sm">
+                    <p class="text-xs text-gray-400 mt-1">Chấp nhận: JPG, PNG, GIF (tối đa 5MB)</p>
+                    <div id="imagePreview" class="mt-2 hidden">
+                        <img id="previewImg" class="max-h-32 rounded border" alt="Preview">
+                    </div>
+                </div>
+                <div class="flex gap-3 pt-2">
+                    <button type="button" onclick="closeCreateModal()" class="flex-1 px-4 py-2 border rounded-lg hover:bg-gray-50">Hủy</button>
+                    <button type="submit" class="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Tạo báo cáo</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Xem chi tiết -->
+    <div id="detailModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-2xl mx-4 max-h-[80vh] overflow-y-auto">
+            <div class="flex justify-between items-center p-4 border-b sticky top-0 bg-white">
+                <h3 class="font-bold text-gray-800">Chi tiết báo cáo</h3>
+                <button onclick="closeDetailModal()" class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
+            </div>
+            <div id="detailContent" class="p-4"></div>
+        </div>
+    </div>
+
+    <!-- Modal Sửa báo cáo -->
+    <div id="editModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-lg mx-4">
+            <div class="flex justify-between items-center p-4 border-b">
+                <h3 class="font-bold text-gray-800">Sửa báo cáo</h3>
+                <button onclick="closeEditModal()" class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
+            </div>
+            <form id="editReportForm" class="p-4 space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Chiến dịch</label>
+                    <select id="editCampaignSelect" disabled class="w-full px-3 py-2 border rounded-lg bg-gray-100">
+                        <option value="">Chọn chiến dịch</option>
+                    </select>
+                    <p class="text-xs text-gray-400 mt-1">Không thể thay đổi chiến dịch</p>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Loại báo cáo *</label>
+                    <select id="editReportType" required onchange="toggleEditFinanceFields()" class="w-full px-3 py-2 border rounded-lg">
+                        <option value="tien_do">Báo cáo tiến độ</option>
+                        <option value="tai_chinh">Báo cáo tài chính</option>
+                        <option value="tong_ket">Báo cáo tổng kết</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Tiêu đề *</label>
+                    <input type="text" id="editReportTitle" required class="w-full px-3 py-2 border rounded-lg" placeholder="VD: Báo cáo tuần 1">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Nội dung *</label>
+                    <textarea id="editReportContent" required rows="4" class="w-full px-3 py-2 border rounded-lg" placeholder="Nội dung chi tiết báo cáo..."></textarea>
+                </div>
+                <div id="editFinanceFields" class="hidden grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Tổng thu (VNĐ)</label>
+                        <input type="number" id="editTotalIncome" class="w-full px-3 py-2 border rounded-lg" placeholder="0">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Tổng chi (VNĐ)</label>
+                        <input type="number" id="editTotalExpense" class="w-full px-3 py-2 border rounded-lg" placeholder="0">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Hình ảnh minh chứng</label>
+                    <input type="file" id="editReportImage" accept="image/*" class="w-full px-3 py-2 border rounded-lg text-sm">
+                    <p class="text-xs text-gray-400 mt-1">Để trống nếu không muốn thay đổi ảnh</p>
+                    <div id="editImagePreview" class="mt-2 hidden">
+                        <img id="editPreviewImg" class="max-h-32 rounded border" alt="Preview">
+                    </div>
+                </div>
+                <div class="flex gap-3 pt-2">
+                    <button type="button" onclick="closeEditModal()" class="flex-1 px-4 py-2 border rounded-lg hover:bg-gray-50">Hủy</button>
+                    <button type="submit" class="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Lưu thay đổi</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="../../assets/js/config.js"></script>
+    <script src="../../assets/js/tochuc-sidebar.js"></script>
+    <script src="../../assets/js/unread-messages.js"></script>
+    <script>
+        if (!auth.isLoggedInAs('tochuc')) {
+            window.location.href = '../login-tochuc.html';
+        }
+
+        let allReports = [];
+        let allCampaigns = [];
+
+        function logout() {
+            auth.logoutAs('tochuc');
+            window.location.href = '../login-tochuc.html';
+        }
+
+        function formatMoney(a) { return new Intl.NumberFormat('vi-VN').format(a || 0) + 'đ'; }
+        function formatDate(d) { return d ? new Date(d).toLocaleDateString('vi-VN') : '-'; }
+
+        function getTypeBadge(type) {
+            const badges = {
+                'tien_do': '<span class="px-2 py-1 bg-green-100 text-green-700 rounded-full text-xs">Tiến độ</span>',
+                'tai_chinh': '<span class="px-2 py-1 bg-yellow-100 text-yellow-700 rounded-full text-xs">Tài chính</span>',
+                'tong_ket': '<span class="px-2 py-1 bg-purple-100 text-purple-700 rounded-full text-xs">Tổng kết</span>'
+            };
+            return badges[type] || type;
+        }
+
+        async function loadData() {
+            const token = auth.getToken('tochuc');
+            try {
+                // Load reports
+                const resReports = await fetch(`${CONFIG.API_URL}/organization/bao-cao`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const dataReports = await resReports.json();
+                if (dataReports.success) allReports = dataReports.data;
+
+                // Load campaigns
+                const resCampaigns = await fetch(`${CONFIG.API_URL}/organization/chien-dich`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const dataCampaigns = await resCampaigns.json();
+                if (dataCampaigns.success) {
+                    allCampaigns = dataCampaigns.data;
+                    populateCampaignSelect();
+                }
+
+                updateStats();
+                renderReports();
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        function populateCampaignSelect() {
+            const options = '<option value="">Chọn chiến dịch</option>' +
+                allCampaigns.map(c => `<option value="${c.chien_dich_id}">${c.ten_chien_dich}</option>`).join('');
+            document.getElementById('campaignSelect').innerHTML = options;
+            document.getElementById('editCampaignSelect').innerHTML = options;
+            
+            // Filter dropdown
+            const filterOptions = '<option value="">Tất cả chiến dịch</option>' +
+                allCampaigns.map(c => `<option value="${c.chien_dich_id}">${c.ten_chien_dich}</option>`).join('');
+            document.getElementById('filterCampaign').innerHTML = filterOptions;
+        }
+
+        function updateStats() {
+            document.getElementById('statTotal').textContent = allReports.length;
+            document.getElementById('statProgress').textContent = allReports.filter(r => r.loai_bao_cao === 'tien_do').length;
+            document.getElementById('statFinance').textContent = allReports.filter(r => r.loai_bao_cao === 'tai_chinh').length;
+            document.getElementById('statSummary').textContent = allReports.filter(r => r.loai_bao_cao === 'tong_ket').length;
+        }
+
+        function renderReports() {
+            const filterType = document.getElementById('filterType').value;
+            const filterCampaign = document.getElementById('filterCampaign').value;
+            const searchText = document.getElementById('searchInput').value.toLowerCase();
+            
+            let filtered = allReports;
+            
+            if (filterType) {
+                filtered = filtered.filter(r => r.loai_bao_cao === filterType);
+            }
+            if (filterCampaign) {
+                filtered = filtered.filter(r => r.chien_dich_id == filterCampaign);
+            }
+            if (searchText) {
+                filtered = filtered.filter(r => 
+                    r.tieu_de.toLowerCase().includes(searchText) ||
+                    (r.noi_dung && r.noi_dung.toLowerCase().includes(searchText)) ||
+                    (r.ten_chien_dich && r.ten_chien_dich.toLowerCase().includes(searchText))
+                );
+            }
+
+            if (filtered.length === 0) {
+                document.getElementById('reportList').innerHTML = '<div class="p-6 text-center text-gray-500">Chưa có báo cáo nào</div>';
+                return;
+            }
+
+            document.getElementById('reportList').innerHTML = filtered.map(r => `
+                <div class="p-4 hover:bg-gray-50">
+                    <div class="flex justify-between items-start">
+                        <div class="flex-1">
+                            <div class="flex items-center gap-2 mb-1">
+                                <h3 class="font-semibold text-gray-800">${r.tieu_de}</h3>
+                                ${getTypeBadge(r.loai_bao_cao)}
+                            </div>
+                            <p class="text-sm text-blue-600 mb-1">${r.ten_chien_dich || 'Chiến dịch'}</p>
+                            <p class="text-sm text-gray-500 line-clamp-2">${r.noi_dung || ''}</p>
+                            ${r.loai_bao_cao === 'tai_chinh' ? `
+                                <div class="flex gap-4 mt-2 text-sm">
+                                    <span class="text-green-600">Thu: ${formatMoney(r.tong_thu)}</span>
+                                    <span class="text-red-600">Chi: ${formatMoney(r.tong_chi)}</span>
+                                </div>
+                            ` : ''}
+                        </div>
+                        <div class="text-right ml-4">
+                            <p class="text-xs text-gray-400">${formatDate(r.ngay_bao_cao)}</p>
+                            <button onclick="viewDetail(${r.bao_cao_id})" class="mt-2 text-blue-600 text-sm hover:underline">Xem chi tiết</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openCreateModal() {
+            document.getElementById('createModal').classList.remove('hidden');
+            document.getElementById('reportForm').reset();
+            document.getElementById('imagePreview').classList.add('hidden');
+            toggleFinanceFields();
+        }
+
+        function closeCreateModal() {
+            document.getElementById('createModal').classList.add('hidden');
+        }
+
+        function toggleFinanceFields() {
+            const type = document.getElementById('reportType').value;
+            document.getElementById('financeFields').classList.toggle('hidden', type !== 'tai_chinh');
+        }
+
+        // Preview ảnh khi chọn file
+        document.getElementById('reportImage').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('previewImg').src = e.target.result;
+                    document.getElementById('imagePreview').classList.remove('hidden');
+                };
+                reader.readAsDataURL(file);
+            } else {
+                document.getElementById('imagePreview').classList.add('hidden');
+            }
+        });
+
+        document.getElementById('editReportImage').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('editPreviewImg').src = e.target.result;
+                    document.getElementById('editImagePreview').classList.remove('hidden');
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        document.getElementById('reportForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const token = auth.getToken('tochuc');
+
+            const formData = new FormData();
+            formData.append('chien_dich_id', document.getElementById('campaignSelect').value);
+            formData.append('loai_bao_cao', document.getElementById('reportType').value);
+            formData.append('tieu_de', document.getElementById('reportTitle').value);
+            formData.append('noi_dung', document.getElementById('reportContent').value);
+            formData.append('tong_thu', document.getElementById('totalIncome').value || 0);
+            formData.append('tong_chi', document.getElementById('totalExpense').value || 0);
+            
+            const imageFile = document.getElementById('reportImage').files[0];
+            if (imageFile) {
+                formData.append('hinh_anh', imageFile);
+            }
+
+            try {
+                const res = await fetch(`${CONFIG.API_URL}/organization/bao-cao`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: formData
+                });
+                const data = await res.json();
+                if (data.success) {
+                    alert('Tạo báo cáo thành công!');
+                    closeCreateModal();
+                    loadData();
+                } else {
+                    alert(data.message || 'Có lỗi xảy ra');
+                }
+            } catch (error) {
+                alert('Lỗi kết nối server');
+            }
+        });
+
+        function viewDetail(id) {
+            const r = allReports.find(r => r.bao_cao_id === id);
+            if (!r) return;
+
+            const imageUrl = r.file_dinh_kem ? `${CONFIG.API_URL.replace('/api', '')}${r.file_dinh_kem}` : null;
+
+            document.getElementById('detailContent').innerHTML = `
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <h2 class="text-xl font-bold text-gray-800">${r.tieu_de}</h2>
+                            ${getTypeBadge(r.loai_bao_cao)}
+                        </div>
+                        <div class="flex gap-2">
+                            <button onclick="openEditModal(${r.bao_cao_id})" class="px-3 py-1 text-blue-600 border border-blue-600 rounded hover:bg-blue-50 text-sm">Sửa</button>
+                            <button onclick="deleteReport(${r.bao_cao_id})" class="px-3 py-1 text-red-600 border border-red-600 rounded hover:bg-red-50 text-sm">Xóa</button>
+                        </div>
+                    </div>
+                    <div class="flex gap-4 text-sm text-gray-500">
+                        <span>📅 ${formatDate(r.ngay_bao_cao)}</span>
+                        <span>📁 ${r.ten_chien_dich || 'Chiến dịch'}</span>
+                    </div>
+                    ${r.loai_bao_cao === 'tai_chinh' ? `
+                        <div class="grid grid-cols-2 gap-4 p-4 bg-gray-50 rounded-lg">
+                            <div>
+                                <p class="text-sm text-gray-500">Tổng thu</p>
+                                <p class="text-xl font-bold text-green-600">${formatMoney(r.tong_thu)}</p>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-500">Tổng chi</p>
+                                <p class="text-xl font-bold text-red-600">${formatMoney(r.tong_chi)}</p>
+                            </div>
+                        </div>
+                    ` : ''}
+                    <div>
+                        <p class="text-sm font-medium text-gray-700 mb-2">Nội dung báo cáo</p>
+                        <div class="p-4 bg-gray-50 rounded-lg whitespace-pre-wrap text-gray-700">${r.noi_dung || 'Không có nội dung'}</div>
+                    </div>
+                    ${imageUrl ? `
+                        <div>
+                            <p class="text-sm font-medium text-gray-700 mb-2">📷 Hình ảnh minh chứng</p>
+                            <img src="${imageUrl}" alt="Hình ảnh báo cáo" class="max-w-full rounded-lg border cursor-pointer hover:opacity-90" onclick="window.open('${imageUrl}', '_blank')">
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+            document.getElementById('detailModal').classList.remove('hidden');
+        }
+
+        function closeDetailModal() {
+            document.getElementById('detailModal').classList.add('hidden');
+        }
+
+        // Mở modal sửa báo cáo
+        let editingReportId = null;
+        function openEditModal(id) {
+            const r = allReports.find(r => r.bao_cao_id === id);
+            if (!r) return;
+            
+            editingReportId = id;
+            closeDetailModal();
+            
+            document.getElementById('editCampaignSelect').value = r.chien_dich_id;
+            document.getElementById('editReportType').value = r.loai_bao_cao;
+            document.getElementById('editReportTitle').value = r.tieu_de;
+            document.getElementById('editReportContent').value = r.noi_dung || '';
+            document.getElementById('editTotalIncome').value = r.tong_thu || 0;
+            document.getElementById('editTotalExpense').value = r.tong_chi || 0;
+            document.getElementById('editReportImage').value = '';
+            
+            // Hiển thị ảnh hiện tại nếu có
+            if (r.file_dinh_kem) {
+                const imageUrl = `${CONFIG.API_URL.replace('/api', '')}${r.file_dinh_kem}`;
+                document.getElementById('editPreviewImg').src = imageUrl;
+                document.getElementById('editImagePreview').classList.remove('hidden');
+            } else {
+                document.getElementById('editImagePreview').classList.add('hidden');
+            }
+            
+            toggleEditFinanceFields();
+            document.getElementById('editModal').classList.remove('hidden');
+        }
+
+        function closeEditModal() {
+            document.getElementById('editModal').classList.add('hidden');
+            editingReportId = null;
+        }
+
+        function toggleEditFinanceFields() {
+            const type = document.getElementById('editReportType').value;
+            document.getElementById('editFinanceFields').classList.toggle('hidden', type !== 'tai_chinh');
+        }
+
+        // Submit sửa báo cáo
+        document.getElementById('editReportForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            if (!editingReportId) return;
+            
+            const token = auth.getToken('tochuc');
+            const formData = new FormData();
+            formData.append('loai_bao_cao', document.getElementById('editReportType').value);
+            formData.append('tieu_de', document.getElementById('editReportTitle').value);
+            formData.append('noi_dung', document.getElementById('editReportContent').value);
+            formData.append('tong_thu', document.getElementById('editTotalIncome').value || 0);
+            formData.append('tong_chi', document.getElementById('editTotalExpense').value || 0);
+            
+            const imageFile = document.getElementById('editReportImage').files[0];
+            if (imageFile) {
+                formData.append('hinh_anh', imageFile);
+            }
+
+            try {
+                const res = await fetch(`${CONFIG.API_URL}/organization/bao-cao/${editingReportId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: formData
+                });
+                const data = await res.json();
+                if (data.success) {
+                    alert('Cập nhật báo cáo thành công!');
+                    closeEditModal();
+                    loadData();
+                } else {
+                    alert(data.message || 'Có lỗi xảy ra');
+                }
+            } catch (error) {
+                alert('Lỗi kết nối server');
+            }
+        });
+
+        // Xóa báo cáo
+        async function deleteReport(id) {
+            if (!confirm('Bạn có chắc muốn xóa báo cáo này?')) return;
+            
+            const token = auth.getToken('tochuc');
+            try {
+                const res = await fetch(`${CONFIG.API_URL}/organization/bao-cao/${id}`, {
+                    method: 'DELETE',
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await res.json();
+                if (data.success) {
+                    alert('Xóa báo cáo thành công!');
+                    closeDetailModal();
+                    loadData();
+                } else {
+                    alert(data.message || 'Có lỗi xảy ra');
+                }
+            } catch (error) {
+                alert('Lỗi kết nối server');
+            }
+        }
+
+        // Xuất báo cáo ra CSV (Excel) - theo filter hiện tại
+        function exportToCSV() {
+            // Lấy dữ liệu đã filter
+            const filterType = document.getElementById('filterType').value;
+            const filterCampaign = document.getElementById('filterCampaign').value;
+            const searchText = document.getElementById('searchInput').value.toLowerCase();
+            
+            let dataToExport = allReports;
+            
+            if (filterType) {
+                dataToExport = dataToExport.filter(r => r.loai_bao_cao === filterType);
+            }
+            if (filterCampaign) {
+                dataToExport = dataToExport.filter(r => r.chien_dich_id == filterCampaign);
+            }
+            if (searchText) {
+                dataToExport = dataToExport.filter(r => 
+                    r.tieu_de.toLowerCase().includes(searchText) ||
+                    (r.noi_dung && r.noi_dung.toLowerCase().includes(searchText)) ||
+                    (r.ten_chien_dich && r.ten_chien_dich.toLowerCase().includes(searchText))
+                );
+            }
+            
+            if (dataToExport.length === 0) {
+                alert('Không có dữ liệu để xuất');
+                return;
+            }
+            
+            const typeLabels = { 'tien_do': 'Tiến độ', 'tai_chinh': 'Tài chính', 'tong_ket': 'Tổng kết' };
+            
+            // Lấy tên chiến dịch nếu đang filter
+            let fileName = 'bao-cao';
+            if (filterCampaign) {
+                const campaign = allCampaigns.find(c => c.chien_dich_id == filterCampaign);
+                if (campaign) {
+                    fileName = `bao-cao-${campaign.ten_chien_dich.replace(/[^a-zA-Z0-9\u00C0-\u1EF9]/g, '-')}`;
+                }
+            }
+            
+            // Header
+            let csv = '\uFEFF'; // BOM for UTF-8
+            csv += 'STT,Tiêu đề,Loại báo cáo,Chiến dịch,Nội dung,Tổng thu,Tổng chi,Ngày tạo\n';
+            
+            // Data
+            dataToExport.forEach((r, i) => {
+                const row = [
+                    i + 1,
+                    `"${(r.tieu_de || '').replace(/"/g, '""')}"`,
+                    typeLabels[r.loai_bao_cao] || r.loai_bao_cao,
+                    `"${(r.ten_chien_dich || '').replace(/"/g, '""')}"`,
+                    `"${(r.noi_dung || '').replace(/"/g, '""').replace(/\n/g, ' ')}"`,
+                    r.tong_thu || 0,
+                    r.tong_chi || 0,
+                    formatDate(r.ngay_bao_cao)
+                ];
+                csv += row.join(',') + '\n';
+            });
+            
+            // Download
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `${fileName}-${new Date().toISOString().split('T')[0]}.csv`;
+            link.click();
+        }
+
+        // Init
+        loadData();
+    </script>
+</body>
+</html>

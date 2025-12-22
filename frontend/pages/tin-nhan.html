@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tin nhắn - Thiện Nguyện</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        .message-container { height: calc(100vh - 280px); }
+    </style>
+</head>
+
+<body class="bg-gray-100 min-h-screen">
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-2 flex items-center justify-between">
+            <a href="home.html" class="flex items-center gap-2">
+                <div class="w-10 h-10 gradient-heart rounded-full flex items-center justify-center">
+                    <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
+                    </svg>
+                </div>
+            </a>
+            <nav class="hidden md:flex items-center gap-2">
+                <a href="home.html" class="p-3 rounded-lg text-gray-500 hover:bg-gray-100">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+                    </svg>
+                </a>
+                <a href="chien-dich.html" class="p-3 rounded-lg text-gray-500 hover:bg-gray-100">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                    </svg>
+                </a>
+                <a href="tin-nhan.html" class="p-3 rounded-lg bg-blue-50 text-blue-600">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                    </svg>
+                </a>
+                <a href="profile.html" class="p-3 rounded-lg text-gray-500 hover:bg-gray-100">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                    </svg>
+                </a>
+            </nav>
+            <div class="flex items-center gap-3">
+                <button onclick="logout()" class="px-4 py-2 text-red-600 hover:bg-red-50 rounded-lg text-sm">Đăng xuất</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-5xl mx-auto px-4 py-6">
+        <div class="bg-white rounded-lg shadow overflow-hidden">
+            <div class="flex h-[600px]">
+                <!-- Sidebar - Danh sách hội thoại -->
+                <div class="w-80 border-r flex flex-col">
+                    <div class="p-4 border-b">
+                        <div class="flex justify-between items-center mb-3">
+                            <h2 class="font-bold text-gray-800">Tin nhắn</h2>
+                            <button onclick="openNewMessageModal()" class="p-2 hover:bg-gray-100 rounded-full" title="Tin nhắn mới">
+                                <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                                </svg>
+                            </button>
+                        </div>
+                        <input type="text" id="searchConversation" placeholder="Tìm kiếm..." 
+                            class="w-full px-3 py-2 border rounded-lg text-sm" oninput="filterConversations()">
+                    </div>
+                    <div id="conversationList" class="flex-1 overflow-y-auto">
+                        <div class="p-4 text-center text-gray-500">Đang tải...</div>
+                    </div>
+                </div>
+
+                <!-- Chat Area -->
+                <div class="flex-1 flex flex-col">
+                    <!-- Chat Header -->
+                    <div id="chatHeader" class="p-4 border-b hidden">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold" id="chatAvatar">T</div>
+                                <div>
+                                    <h3 class="font-semibold text-gray-800" id="chatName">Tên tổ chức</h3>
+                                    <p class="text-xs text-gray-500">Tổ chức thiện nguyện</p>
+                                </div>
+                            </div>
+                            <button onclick="deleteConversation()" class="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-full" title="Xóa hội thoại">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Messages -->
+                    <div id="messagesArea" class="flex-1 overflow-y-auto p-4 space-y-3">
+                        <div class="flex items-center justify-center h-full text-gray-400">
+                            <div class="text-center">
+                                <svg class="w-16 h-16 mx-auto mb-3 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                                </svg>
+                                <p>Chọn một hội thoại để bắt đầu</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Input Area -->
+                    <div id="inputArea" class="p-4 border-t hidden">
+                        <form onsubmit="sendMessage(event)" class="flex gap-2">
+                            <input type="text" id="messageInput" placeholder="Nhập tin nhắn..." 
+                                class="flex-1 px-4 py-2 border rounded-full focus:ring-2 focus:ring-blue-500 outline-none">
+                            <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                                </svg>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal Tin nhắn mới -->
+    <div id="newMessageModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-md mx-4">
+            <div class="flex justify-between items-center p-4 border-b">
+                <h3 class="font-bold text-gray-800">Tin nhắn mới</h3>
+                <button onclick="closeNewMessageModal()" class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
+            </div>
+            <div class="p-4">
+                <input type="text" id="searchOrgInput" placeholder="Tìm kiếm tổ chức..." 
+                    class="w-full px-3 py-2 border rounded-lg text-sm mb-3" oninput="searchOrganizations()">
+                <p class="text-sm text-gray-500 mb-2" id="orgListLabel">Tổ chức đang theo dõi:</p>
+                <div id="orgList" class="space-y-2 max-h-64 overflow-y-auto">
+                    <div class="text-center text-gray-500 py-4">Đang tải...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <script src="../assets/js/config.js"></script>
+    <script src="../assets/js/socket-client.js"></script>
+    <script src="../assets/js/unread-messages.js"></script>
+    <script>
+        // Check auth
+        if (!auth.isLoggedIn()) {
+            window.location.href = 'login.html';
+        }
+
+        let allConversations = [];
+        let currentToChucId = null;
+
+        // Hàm xử lý khi nhận tin nhắn mới qua socket
+        function onNewMessageReceived(data) {
+            console.log('📩 Tin nhắn mới trong trang tin nhắn:', data);
+            
+            // Nếu đang mở conversation với tổ chức gửi này, thêm tin nhắn vào
+            if (currentToChucId && data.nguoi_gui_to_chuc_id == currentToChucId) {
+                // Thêm tin nhắn mới vào cuối
+                const messagesArea = document.getElementById('messagesArea');
+                const messageHtml = `
+                    <div class="flex justify-start">
+                        <div class="max-w-[70%] bg-gray-100 text-gray-800 rounded-2xl px-4 py-2">
+                            <p>${data.noi_dung}</p>
+                            <p class="text-xs text-gray-400 mt-1">Vừa xong</p>
+                        </div>
+                    </div>
+                `;
+                
+                // Kiểm tra nếu đang hiển thị placeholder
+                if (messagesArea.querySelector('.text-gray-400.text-center')) {
+                    messagesArea.innerHTML = messageHtml;
+                } else {
+                    messagesArea.insertAdjacentHTML('beforeend', messageHtml);
+                }
+                
+                // Scroll xuống cuối
+                messagesArea.scrollTop = messagesArea.scrollHeight;
+                
+                // Đánh dấu đã đọc (vì đang mở conversation)
+                markAsRead(currentToChucId);
+            }
+            
+            // Cập nhật danh sách hội thoại
+            updateConversationList(data);
+        }
+
+        // Cập nhật danh sách hội thoại khi có tin nhắn mới
+        function updateConversationList(data) {
+            const toChucId = data.nguoi_gui_to_chuc_id;
+            const existingConv = allConversations.find(c => c.to_chuc_id == toChucId);
+            
+            if (existingConv) {
+                // Cập nhật tin nhắn cuối
+                existingConv.tin_nhan_cuoi = data.noi_dung;
+                existingConv.ngay_gui_cuoi = data.ngay_gui || new Date().toISOString();
+                
+                // Tăng số chưa đọc nếu không phải conversation đang mở
+                if (currentToChucId != toChucId) {
+                    existingConv.chua_doc = (existingConv.chua_doc || 0) + 1;
+                }
+                
+                // Đưa lên đầu danh sách
+                allConversations = allConversations.filter(c => c.to_chuc_id != toChucId);
+                allConversations.unshift(existingConv);
+            } else {
+                // Thêm conversation mới
+                allConversations.unshift({
+                    to_chuc_id: toChucId,
+                    ten_to_chuc: data.ten_to_chuc || 'Tổ chức',
+                    tin_nhan_cuoi: data.noi_dung,
+                    ngay_gui_cuoi: data.ngay_gui || new Date().toISOString(),
+                    chua_doc: 1
+                });
+            }
+            
+            renderConversations();
+        }
+
+        function logout() {
+            auth.logout();
+            window.location.href = 'login.html';
+        }
+
+        function formatTime(dateStr) {
+            if (!dateStr) return '';
+            const date = new Date(dateStr);
+            const now = new Date();
+            const diff = now - date;
+            
+            if (diff < 60000) return 'Vừa xong';
+            if (diff < 3600000) return Math.floor(diff / 60000) + ' phút';
+            if (diff < 86400000) return Math.floor(diff / 3600000) + ' giờ';
+            if (diff < 604800000) return Math.floor(diff / 86400000) + ' ngày';
+            return date.toLocaleDateString('vi-VN');
+        }
+
+        // Load conversations
+        async function loadConversations() {
+            const token = auth.getToken();
+            if (!token) return;
+
+            try {
+                const res = await fetch(`${CONFIG.API_URL}/messages/conversations`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await res.json();
+
+                if (data.success) {
+                    allConversations = data.data;
+                    renderConversations();
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        function filterConversations() {
+            renderConversations();
+        }
+
+        function renderConversations() {
+            const search = document.getElementById('searchConversation').value.toLowerCase();
+            let filtered = allConversations;
+            
+            if (search) {
+                filtered = filtered.filter(c => c.ten_to_chuc.toLowerCase().includes(search));
+            }
+
+            if (filtered.length === 0) {
+                document.getElementById('conversationList').innerHTML = 
+                    '<div class="p-4 text-center text-gray-500">Chưa có hội thoại nào</div>';
+                return;
+            }
+
+            document.getElementById('conversationList').innerHTML = filtered.map(c => `
+                <div onclick="openConversation(${c.to_chuc_id})" 
+                    class="p-3 hover:bg-gray-50 cursor-pointer border-b ${currentToChucId == c.to_chuc_id ? 'bg-blue-50' : ''}">
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold flex-shrink-0">
+                            ${c.ten_to_chuc.charAt(0).toUpperCase()}
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex justify-between items-center">
+                                <h4 class="font-medium text-gray-800 truncate">${c.ten_to_chuc}</h4>
+                                <span class="text-xs text-gray-400">${formatTime(c.ngay_gui_cuoi)}</span>
+                            </div>
+                            <p class="text-sm text-gray-500 truncate">${c.tin_nhan_cuoi || 'Chưa có tin nhắn'}</p>
+                        </div>
+                        ${c.chua_doc > 0 ? `<span class="w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">${c.chua_doc}</span>` : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        async function openConversation(toChucId) {
+            currentToChucId = toChucId;
+            const token = auth.getToken();
+
+            try {
+                const res = await fetch(`${CONFIG.API_URL}/messages/with-org/${toChucId}`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await res.json();
+
+                if (data.success) {
+                    // Update header
+                    document.getElementById('chatHeader').classList.remove('hidden');
+                    document.getElementById('inputArea').classList.remove('hidden');
+                    document.getElementById('chatName').textContent = data.to_chuc?.ten_to_chuc || 'Tổ chức';
+                    document.getElementById('chatAvatar').textContent = (data.to_chuc?.ten_to_chuc || 'T').charAt(0).toUpperCase();
+
+                    // Render messages
+                    renderMessages(data.data);
+                    
+                    // Update conversation list
+                    renderConversations();
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        function renderMessages(messages) {
+            if (messages.length === 0) {
+                document.getElementById('messagesArea').innerHTML = 
+                    '<div class="flex items-center justify-center h-full text-gray-400">Chưa có tin nhắn. Hãy bắt đầu cuộc trò chuyện!</div>';
+                return;
+            }
+
+            document.getElementById('messagesArea').innerHTML = messages.map(m => {
+                const isMe = m.loai_nguoi_gui === 'user';
+                return `
+                    <div class="flex ${isMe ? 'justify-end' : 'justify-start'}">
+                        <div class="max-w-[70%] ${isMe ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-800'} rounded-2xl px-4 py-2">
+                            <p>${m.noi_dung}</p>
+                            <p class="text-xs ${isMe ? 'text-blue-200' : 'text-gray-400'} mt-1">${formatTime(m.ngay_gui)}</p>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            // Scroll to bottom
+            const area = document.getElementById('messagesArea');
+            area.scrollTop = area.scrollHeight;
+        }
+
+        async function sendMessage(e) {
+            e.preventDefault();
+            if (!currentToChucId) return;
+
+            const input = document.getElementById('messageInput');
+            const content = input.value.trim();
+            if (!content) return;
+
+            const token = auth.getToken();
+
+            try {
+                const res = await fetch(`${CONFIG.API_URL}/messages/to-org/${currentToChucId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ noi_dung: content })
+                });
+
+                const data = await res.json();
+                if (data.success) {
+                    input.value = '';
+                    openConversation(currentToChucId);
+                    loadConversations();
+                } else {
+                    alert(data.message || 'Lỗi gửi tin nhắn');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Lỗi kết nối server');
+            }
+        }
+
+        // Modal tin nhắn mới
+        let searchTimeout = null;
+
+        async function openNewMessageModal() {
+            document.getElementById('newMessageModal').classList.remove('hidden');
+            document.getElementById('searchOrgInput').value = '';
+            document.getElementById('orgListLabel').textContent = 'Tổ chức đang theo dõi:';
+            loadFollowedOrgs();
+        }
+
+        async function loadFollowedOrgs() {
+            const token = auth.getToken();
+            try {
+                const res = await fetch(`${CONFIG.API_URL}/messages/contactable-orgs`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await res.json();
+                renderOrgList(data.data, false);
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        async function searchOrganizations() {
+            const query = document.getElementById('searchOrgInput').value.trim();
+            
+            // Debounce
+            if (searchTimeout) clearTimeout(searchTimeout);
+            
+            if (query.length < 2) {
+                document.getElementById('orgListLabel').textContent = 'Tổ chức đang theo dõi:';
+                loadFollowedOrgs();
+                return;
+            }
+
+            searchTimeout = setTimeout(async () => {
+                document.getElementById('orgListLabel').textContent = 'Kết quả tìm kiếm:';
+                const token = auth.getToken();
+                try {
+                    const res = await fetch(`${CONFIG.API_URL}/messages/search-orgs?q=${encodeURIComponent(query)}`, {
+                        headers: { 'Authorization': `Bearer ${token}` }
+                    });
+                    const data = await res.json();
+                    renderOrgList(data.data, true);
+                } catch (error) {
+                    console.error('Error:', error);
+                }
+            }, 300);
+        }
+
+        function renderOrgList(orgs, showFollowStatus) {
+            if (!orgs || orgs.length === 0) {
+                document.getElementById('orgList').innerHTML = 
+                    '<div class="text-center text-gray-500 py-4">Không tìm thấy tổ chức nào</div>';
+                return;
+            }
+
+            document.getElementById('orgList').innerHTML = orgs.map(org => `
+                <div onclick="startNewConversation(${org.to_chuc_id}, '${org.ten_to_chuc.replace(/'/g, "\\'")}')" 
+                    class="p-3 hover:bg-gray-50 cursor-pointer rounded-lg border flex items-center gap-3">
+                    <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold">
+                        ${org.ten_to_chuc.charAt(0).toUpperCase()}
+                    </div>
+                    <div class="flex-1">
+                        <span class="font-medium text-gray-800">${org.ten_to_chuc}</span>
+                        ${showFollowStatus ? `<span class="text-xs ${org.da_follow ? 'text-green-600' : 'text-gray-400'} ml-2">${org.da_follow ? '✓ Đang theo dõi' : ''}</span>` : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function closeNewMessageModal() {
+            document.getElementById('newMessageModal').classList.add('hidden');
+        }
+
+        function startNewConversation(toChucId, tenToChuc) {
+            closeNewMessageModal();
+            
+            // Nếu chưa có trong danh sách hội thoại, thêm tạm
+            const exists = allConversations.find(c => c.to_chuc_id === toChucId);
+            if (!exists && tenToChuc) {
+                allConversations.unshift({
+                    to_chuc_id: toChucId,
+                    ten_to_chuc: tenToChuc,
+                    tin_nhan_cuoi: null,
+                    ngay_gui_cuoi: null,
+                    chua_doc: 0
+                });
+                renderConversations();
+            }
+            
+            openConversation(toChucId);
+        }
+
+        // Check URL params for direct message
+        const urlParams = new URLSearchParams(window.location.search);
+        const orgId = urlParams.get('org');
+        
+        async function initPage() {
+            await loadConversations();
+            
+            if (orgId) {
+                // Lấy thông tin tổ chức từ API
+                try {
+                    const res = await fetch(`${CONFIG.API_URL}/tochuc/${orgId}`);
+                    const data = await res.json();
+                    if (data.success && data.data) {
+                        const org = data.data;
+                        // Thêm vào danh sách hội thoại nếu chưa có
+                        const exists = allConversations.find(c => c.to_chuc_id == orgId);
+                        if (!exists) {
+                            allConversations.unshift({
+                                to_chuc_id: parseInt(orgId),
+                                ten_to_chuc: org.ten_to_chuc,
+                                tin_nhan_cuoi: null,
+                                ngay_gui_cuoi: null,
+                                chua_doc: 0
+                            });
+                            renderConversations();
+                        }
+                        openConversation(parseInt(orgId));
+                    }
+                } catch (error) {
+                    console.error('Error loading org:', error);
+                }
+            }
+        }
+
+        // Xóa hội thoại
+        async function deleteConversation() {
+            if (!currentToChucId) return;
+            
+            const orgName = document.getElementById('chatName').textContent;
+            if (!confirm(`Bạn có chắc muốn xóa hội thoại với "${orgName}"?\nTin nhắn sẽ bị ẩn khỏi danh sách của bạn.`)) {
+                return;
+            }
+
+            const token = auth.getToken();
+            try {
+                const res = await fetch(`${CONFIG.API_URL}/messages/conversation/${currentToChucId}`, {
+                    method: 'DELETE',
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await res.json();
+                
+                if (data.success) {
+                    // Xóa khỏi danh sách local
+                    allConversations = allConversations.filter(c => c.to_chuc_id != currentToChucId);
+                    currentToChucId = null;
+                    
+                    // Reset UI
+                    document.getElementById('chatHeader').classList.add('hidden');
+                    document.getElementById('inputArea').classList.add('hidden');
+                    document.getElementById('messagesArea').innerHTML = `
+                        <div class="flex items-center justify-center h-full text-gray-400">
+                            <div class="text-center">
+                                <svg class="w-16 h-16 mx-auto mb-3 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                                </svg>
+                                <p>Chọn một hội thoại để bắt đầu</p>
+                            </div>
+                        </div>
+                    `;
+                    
+                    renderConversations();
+                    alert('Đã xóa hội thoại');
+                } else {
+                    alert(data.message || 'Lỗi xóa hội thoại');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Lỗi kết nối server');
+            }
+        }
+
+        // Init
+        initPage();
+    </script>
+</body>
+</html>

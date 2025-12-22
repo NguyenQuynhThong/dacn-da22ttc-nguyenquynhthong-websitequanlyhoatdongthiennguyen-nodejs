@@ -71,9 +71,12 @@ const getComments = async (req, res) => {
         const offset = (page - 1) * limit;
 
         const [comments] = await pool.query(
-            `SELECT bl.*, nd.ho_ten, nd.avatar_url
+            `SELECT bl.*, 
+                    nd.ho_ten, nd.avatar_url,
+                    tc.ten_to_chuc as org_name, tc.logo as org_logo
              FROM BinhLuan bl
              LEFT JOIN NguoiDung nd ON bl.user_id = nd.user_id
+             LEFT JOIN ToChuc tc ON bl.to_chuc_id = tc.to_chuc_id
              WHERE bl.chien_dich_id = ? AND bl.trang_thai = 'hien_thi' AND bl.parent_id IS NULL
              ORDER BY bl.ngay_binh_luan DESC
              LIMIT ? OFFSET ?`,
@@ -83,9 +86,12 @@ const getComments = async (req, res) => {
         // Lấy replies cho mỗi comment
         for (let comment of comments) {
             const [replies] = await pool.query(
-                `SELECT bl.*, nd.ho_ten, nd.avatar_url
+                `SELECT bl.*, 
+                        nd.ho_ten, nd.avatar_url,
+                        tc.ten_to_chuc as org_name, tc.logo as org_logo
                  FROM BinhLuan bl
                  LEFT JOIN NguoiDung nd ON bl.user_id = nd.user_id
+                 LEFT JOIN ToChuc tc ON bl.to_chuc_id = tc.to_chuc_id
                  WHERE bl.parent_id = ? AND bl.trang_thai = 'hien_thi'
                  ORDER BY bl.ngay_binh_luan ASC`,
                 [comment.binh_luan_id]
